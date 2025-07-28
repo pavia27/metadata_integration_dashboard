@@ -1,0 +1,337 @@
+/* app.js (CSV‑driven) */
+/* eslint-env browser */
+/* global d3 */
+
+/* ─── Dummy Tree (keep for now) ───────────────────────────────────────── */
+const dummyTree = {
+  name: "root",
+  children: [
+    { name: "ACC001" },
+    { name: "ACC002" },
+    {
+      name: "clade-X",
+      children: [
+        { name: "ACC003" },
+        { name: "ACC004" }
+      ]
+    }
+  ]
+};
+
+/* ─── Global State ─────────────────────────────────────────────────────── */
+const state = {
+  sequences: [],      // populated from CSV
+  papers: [],         // derived from sequences
+  tree: dummyTree,
+  activePanel: null,
+  filters: {},
+  descriptors: []     // populated from CSV header
+};
+
+/* ─── Utility Helpers ──────────────────────────────────────────────────── */
+const unique = arr => [...new Set(arr)];
+const hash = str => str ? Array.from(String(str)).reduce((h, c) => h + c.charCodeAt(0), 0) : 0;
+
+/* CSV export of filtered sequences */
+function exportCSV () {
+  const rows = [["accession", "pmid", ...state.descriptors]];
+  state.sequences.forEach(s => {
+    const d = state.descriptors.map(k => s.descriptors[k]);
+    rows.push([s.accession, s.paper, ...d]);
+  });
+  const csv = rows.map(r => r.join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "filtered_sequences.csv";
+  a.click();
+}
+
+/* ─── Intersection Observer for Scroll‑activation ─────────────────────── */
+function createObserver () {
+  const panels = document.querySelectorAll(".panel");
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        panels.forEach(p => p.classList.remove("active"));
+        e.target.classList.add("active");
+        state.activePanel = e.target.id;
+      }
+    });
+  }, { threshold: 0.5 });
+  panels.forEach(p => obs.observe(p));
+}
+
+/* ─── Controls Population ─────────────────────────────────────────────── */
+function populateControls () {
+  // Global filter ‑ just list descriptor keys for now
+  const gf = document.getElementById("globalFilter");
+  state.descriptors.forEach(d => gf.add(new Option(d, d)));
+
+  // Tree controls
+  ["treeColour", "treeSize", "treeShape"].forEach(id => {
+    const sel = document.getElementById(id);
+    state.descriptors.forEach(d => sel.add(new Option(d, d)));
+  });
+
+  // Chart controls
+  ["chartX", "chartY", "chartColour", "chartShape"].forEach(id => {
+    const sel = document.getElementById(id);
+    state.descriptors.forEach(d => sel.add(new Option(d, d)));
+  });
+
+  // Heat‑map columns (multi‑select)
+  const hc = document.getElementById("heatCols");
+  state.descriptors.forEach(d => hc.add(new Option(d, d)));
+}
+
+/* ─── Tree Rendering ──────────────────────────────────────────────────── */
+function drawTree () {
+  const svg = d3.select("#treeSvg");
+  svg.selectAll("*").remove();
+  const { width, height } = svg.node().getBoundingClientRect();
+  const layoutType = document.getElementById("treeLayout").value;
+
+  const root = d3.hierarchy(state.tree);
+  let treeLayout = d3.cluster().size([height - 40, width - 160]);
+  if (layoutType === "radial" || layoutType === "unrooted") {
+    treeLayout = d3.cluster().size([2 * Math.PI, height / 2 - 40]);
+  }
+  treeLayout(root);
+
+  const g = svg.append("g")
+    .attr("transform", layoutType === "rectangular" ?
+      `translate(80,20)` :
+      `translate(${width / 2},${height / 2})`);
+
+  // links
+  const link = d3.linkHorizontal()
+    .x(d => layoutType === "rectangular" ? d.y : Math.cos(d.x) * d.y)
+    .y(d => layoutType === "rectangular" ? d.x : Math.sin(d.x) * d.y);
+
+  g.selectAll(".link")
+    .data(root.links())
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("fill", "none")
+      .attr("stroke", "#999")
+      .attr("d", link);
+
+  // nodes
+  const nodes = g.selectAll(".node")
+    .data(root.descendants())
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", d => layoutType === "rectangular" ?
+        `translate(${d.y},${d.x})` :
+        `translate(${Math.cos(d.x) * d.y},${Math.sin(d.x) * d.y})`);
+
+  const colourDesc = document.getElementById("treeColour").value;
+  const sizeDesc = document.getElementById("treeSize").value;
+
+  const numericVals = state.sequences.map(s => +s.descriptors[sizeDesc]).filter(v => !isNaN(v));
+  const sizeScale = d3.scaleLinear()
+    .domain(numericVals.length ? d3.extent(numericVals) : [1, 10])
+    .range([3, 8]);
+
+  nodes.append("circle")
+    .attr("r", d => {
+      const seq = state.sequences.find(s => s.accession === d.data.name);
+      const val = seq ? +seq.descriptors[sizeDesc] : 1;
+      return sizeScale(isNaN(val) ? 1 : val);
+    })
+    .attr("fill", d => {
+      const seq = state.sequences.find(s => s.accession === d.data.name);
+      const key = seq ? seq.descriptors[colourDesc] : null;
+      return key ? d3.schemeTableau10[hash(key) % 10] : "#555";
+    })
+    .append("title")
+      .text(d => d.data.name);
+}
+
+/* ─── Chart Panel ─────────────────────────────────────────────────────── */
+function drawChart () {
+  const svg = d3.select("#chartSvg");
+  svg.selectAll("*").remove();
+  const { width, height } = svg.node().getBoundingClientRect();
+  const mode = document.querySelector("input[name='chartMode']:checked").value;
+  const xDesc = document.getElementById("chartX").value;
+  const yDesc = document.getElementById("chartY").value;
+  const colourDesc = document.getElementById("chartColour").value;
+
+  if (mode === "pyramid") {
+    /* ── Histogram Pyramid ─ */
+    const vals = state.sequences.map(s => +s.descriptors[xDesc]).filter(v => !isNaN(v));
+    const bins = d3.bin().thresholds(10)(vals);
+
+    const y = d3.scaleBand()
+      .domain(bins.map(b => b.x0))
+      .range([0, height])
+      .padding(0.1);
+    const x = d3.scaleLinear()
+      .domain([0, d3.max(bins, b => b.length)])
+      .range([0, width / 2 - 40]);
+
+    const g = svg.append("g").attr("transform", `translate(${width / 2},0)`);
+
+    // right side
+    g.selectAll(".barR")
+      .data(bins)
+      .enter().append("rect")
+        .attr("x", 0)
+        .attr("y", b => y(b.x0))
+        .attr("width", b => x(b.length))
+        .attr("height", y.bandwidth())
+        .attr("fill", "#69b3a2");
+
+    // left side (mirror)
+    g.selectAll(".barL")
+      .data(bins)
+      .enter().append("rect")
+        .attr("x", b => -x(b.length))
+        .attr("y", b => y(b.x0))
+        .attr("width", b => x(b.length))
+        .attr("height", y.bandwidth())
+        .attr("fill", "#4c78a8");
+  } else {
+    /* ── Scatter Plot ─ */
+    const xVals = state.sequences.map(s => +s.descriptors[xDesc]).filter(v => !isNaN(v));
+    const yVals = state.sequences.map(s => +s.descriptors[yDesc]).filter(v => !isNaN(v));
+    if (!xVals.length || !yVals.length) return;
+
+    const x = d3.scaleLinear()
+      .domain(d3.extent(xVals)).nice()
+      .range([40, width - 20]);
+    const y = d3.scaleLinear()
+      .domain(d3.extent(yVals)).nice()
+      .range([height - 30, 20]);
+
+    svg.append("g")
+      .attr("transform", `translate(0,${height - 30})`)
+      .call(d3.axisBottom(x));
+    svg.append("g")
+      .attr("transform", `translate(40,0)`)
+      .call(d3.axisLeft(y));
+
+    svg.selectAll("circle")
+      .data(state.sequences)
+      .enter().append("circle")
+        .attr("cx", d => x(+d.descriptors[xDesc]))
+        .attr("cy", d => y(+d.descriptors[yDesc]))
+        .attr("r", 5)
+        .attr("fill", d => d3.schemeTableau10[hash(d.descriptors[colourDesc]) % 10])
+        .append("title").text(d => d.accession);
+  }
+}
+
+/* ─── Heat Map Panel ──────────────────────────────────────────────────── */
+function drawHeat () {
+  const svg = d3.select("#heatSvg");
+  svg.selectAll("*").remove();
+  const { width, height } = svg.node().getBoundingClientRect();
+  const cols = Array.from(document.getElementById("heatCols").selectedOptions).map(o => o.value);
+  if (!cols.length) return;
+  const rows = state.papers.map(p => p.pmid);
+
+  const x = d3.scaleBand().domain(cols).range([80, width]).padding(0.05);
+  const y = d3.scaleBand().domain(rows).range([0, height - 40]).padding(0.05);
+  const colour = d3.scaleSequential(d3.interpolateViridis).domain([0, 1]);
+
+  // axes
+  svg.append("g").attr("transform", `translate(0,${height - 40})`).call(d3.axisBottom(x));
+  svg.append("g").attr("transform", "translate(80,0)").call(d3.axisLeft(y));
+
+  rows.forEach(r => {
+    cols.forEach(c => {
+      const seqs = state.sequences.filter(s => s.paper === r);
+      
+      // Check for presence of a meaningful value.
+      // It's "present" if at least one sequence for this paper has a value that isn't null, undefined, empty, or 'NA'.
+      const isPresent = seqs.some(s => {
+        const val = s.descriptors[c];
+        if (val === null || val === undefined) return false;
+        const stringVal = String(val).trim();
+        return stringVal !== '' && stringVal.toUpperCase() !== 'NA';
+      });
+      
+      const value = isPresent ? 1 : 0;
+
+      svg.append("rect")
+        .attr("x", x(c))
+        .attr("y", y(r))
+        .attr("width", x.bandwidth())
+        .attr("height", y.bandwidth())
+        .attr("fill", colour(value))
+        .on("mouseover", function () { d3.select(this).attr("stroke", "#000"); })
+        .on("mouseout", function () { d3.select(this).attr("stroke", null); })
+        .append("title")
+          .text(`${r} – ${c}: ${value ? "present" : "absent"}`);
+    });
+  });
+}
+
+/* ─── Event Binding ───────────────────────────────────────────────────── */
+function bindEvents () {
+  document.getElementById("exportCSV").addEventListener("click", exportCSV);
+
+  // Tree controls
+  ["treeColour", "treeSize", "treeShape", "treeLayout"].forEach(id => {
+    document.getElementById(id).addEventListener("change", drawTree);
+  });
+
+  // Chart controls
+  ["chartX", "chartY", "chartColour", "chartShape"].forEach(id => {
+    document.getElementById(id).addEventListener("change", drawChart);
+  });
+  document.querySelectorAll("input[name='chartMode']").forEach(r => r.addEventListener("change", drawChart));
+
+  // Heatmap columns
+  document.getElementById("heatCols").addEventListener("change", drawHeat);
+
+  // Search (placeholder ‑ filter by accession or pmid)
+  document.getElementById("searchBox").addEventListener("change", e => {
+    const tokens = e.target.value.split(",").map(t => t.trim().toUpperCase()).filter(Boolean);
+    if (!tokens.length) return;
+    state.sequences = state.sequences.filter(s => tokens.includes(s.accession.toUpperCase()) || tokens.includes(s.paper.toUpperCase()));
+    drawTree();
+    drawChart();
+    drawHeat();
+  });
+}
+
+/* ─── Data Loading & Bootstrapping ────────────────────────────────────── */
+function loadData () {
+  /* Provide a CSV named "sequences.csv" in /data or root folder.
+     Expected columns: accession,paper,<descriptor1>,<descriptor2>,...
+  */
+  d3.csv("sequences.csv").then(raw => {
+    if (!raw.length) throw new Error("CSV empty or not found");
+
+    state.descriptors = Object.keys(raw[0]).filter(k => !["pmid","accession"].includes(k));
+
+    state.sequences = raw.map(d => ({
+      accession: d.accession,
+      paper: d.paper,
+      descriptors: Object.fromEntries(Object.entries(d)
+        .filter(([k]) => !["pmid","accession"].includes(k))
+        .map(([k, v]) => {
+          const num = +v;
+          return [k, isNaN(num) ? v : num];
+        }))
+    }));
+
+    state.papers = unique(raw.map(d => d.paper)).map(pmid => ({ pmid }));
+
+    populateControls();
+    createObserver();
+    bindEvents();
+    drawTree();
+    drawChart();
+    drawHeat();
+  }).catch(err => {
+    console.error(err);
+    alert("Failed to load sequences.csv. Check console for details.");
+  });
+}
+
+window.addEventListener("DOMContentLoaded", loadData);

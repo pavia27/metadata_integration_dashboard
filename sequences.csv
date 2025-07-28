@@ -1,0 +1,190 @@
+pmid,accession,clade_display,sex,age,immune_state,collection_date,location_country,location_city,CCI
+Chen_2024,SRR25782148,21L (BA.2),M,0,NA,2/25/22,China,Hong Kong,4
+Chen_2024,SRR25782150,21L (BA.2),M,0,NA,2/26/22,China,Hong Kong,3
+Chen_2024,SRR25782155,21L (BA.2),F,83,NA,1/25/22,China,Hong Kong,2
+Chen_2024,SRR25782157,21L (BA.2),M,80,NA,2/10/22,China,Hong Kong,1
+Chen_2024,SRR25782159,21L (BA.2),M,25,NA,2/10/22,China,Hong Kong,4
+Chen_2024,SRR25782161,21L (BA.2),M,1,NA,2/10/22,China,Hong Kong,3
+Chen_2024,SRR25782174,21L (BA.2),F,25,NA,2/7/22,China,Hong Kong,2
+Chen_2024,SRR25782176,21L (BA.2),M,65,NA,2/7/22,China,Hong Kong,1
+Chen_2024,SRR25782179,21L (BA.2),F,70,NA,2/7/22,China,Hong Kong,1
+Chen_2024,SRR25782181,21L (BA.2),F,73,NA,2/8/22,China,Hong Kong,2
+Chen_2024,SRR25782183,21L (BA.2),F,9,NA,2/8/22,China,Hong Kong,3
+Chen_2024,SRR25782185,21L (BA.2),F,5,NA,2/6/22,China,Hong Kong,4
+Chen_2024,SRR25782190,21L (BA.2),F,0,NA,2/6/22,China,Hong Kong,1
+Chen_2024,SRR25782199,21L (BA.2),F,47,NA,1/25/22,China,Hong Kong,2
+Chen_2024,SRR25782201,21L (BA.2),F,38,NA,2/4/22,China,Hong Kong,3
+Chen_2024,SRR25782203,21L (BA.2),M,78,NA,2/3/22,China,Hong Kong,4
+Chen_2024,SRR25782207,21L (BA.2),M,26,NA,1/25/22,China,Hong Kong,4
+Chen_2024,SRR25782208,21L (BA.2),M,65,NA,4/22/22,China,Hong Kong,3
+Chen_2024,SRR25782210,21L (BA.2),F,71,NA,4/11/22,China,Hong Kong,2
+Chen_2024,SRR25782212,21L (BA.2),M,59,NA,3/17/22,China,Hong Kong,1
+Chen_2024,SRR25782214,21L (BA.2),F,85,NA,3/14/22,China,Hong Kong,4
+Chen_2024,SRR25782217,21L (BA.2),M,1,NA,3/11/22,China,Hong Kong,3
+Chen_2024,SRR25782221,21L (BA.2),F,83,NA,3/9/22,China,Hong Kong,2
+Chen_2024,SRR25782219,21L (BA.2),F,74,NA,3/11/22,China,Hong Kong,1
+Chen_2024,SRR25782225,21L (BA.2),M,35,NA,3/3/22,China,Hong Kong,1
+Chen_2024,SRR25782226,21L (BA.2),M,0,NA,2/25/22,China,Hong Kong,2
+Chen_2024,SRR25782229,21L (BA.2),M,0,NA,2/24/22,China,Hong Kong,3
+Chen_2024,SRR25782234,21L (BA.2),F,1,NA,2/21/22,China,Hong Kong,4
+Chen_2024,SRR25782236,21L (BA.2),F,2,NA,2/21/22,China,Hong Kong,1
+Chen_2024,SRR25782238,21L (BA.2),F,43,NA,2/18/22,China,Hong Kong,2
+Chen_2024,SRR25782240,21L (BA.2),F,1,NA,2/18/22,China,Hong Kong,3
+Chen_2024,SRR25782241,21L (BA.2),M,67,NA,1/28/22,China,Hong Kong,4
+Chen_2024,SRR25782243,21L (BA.2),M,68,NA,2/18/22,China,Hong Kong,4
+Chen_2024,SRR25782251,21L (BA.2),M,0,NA,2/13/22,China,Hong Kong,3
+Chen_2024,SRR25782254,21L (BA.2),M,1,NA,2/14/22,China,Hong Kong,2
+Chen_2024,SRR25782256,21L (BA.2),M,8,NA,2/13/22,China,Hong Kong,1
+Chen_2024,SRR25782264,21L (BA.2),F,31,NA,1/23/22,China,Hong Kong,4
+Chen_2024,SRR26065871,21L (BA.2),F,0,NA,2/25/22,China,Hong Kong,3
+Chen_2024,SRR26065873,21L (BA.2),F,0,NA,2/26/22,China,Hong Kong,2
+Chen_2024,SRR26065875,21L (BA.2),F,76,NA,2/27/22,China,Hong Kong,1
+Chen_2024,SRR26065883,21L (BA.2),M,0,NA,2/22/22,China,Hong Kong,1
+Chen_2024,SRR26065887,21L (BA.2),F,81,NA,2/18/22,China,Hong Kong,2
+Chen_2024,SRR26065892,21L (BA.2),M,0,NA,2/17/22,China,Hong Kong,3
+Chen_2024,SRR26065885,21L (BA.2),F,3,NA,2/21/22,China,Hong Kong,4
+Chen_2024,SRR26065894,21L (BA.2),M,77,NA,2/16/22,China,Hong Kong,1
+Chen_2024,SRR26065898,21L (BA.2),M,0,NA,2/13/22,China,Hong Kong,2
+Chen_2024,SRR26065901,21L (BA.2),F,5,NA,2/14/22,China,Hong Kong,3
+Chen_2024,SRR26065900,21L (BA.2),F,40,NA,1/28/22,China,Hong Kong,4
+Chen_2024,SRR26065903,21L (BA.2),F,0,NA,2/13/22,China,Hong Kong,4
+Chen_2024,SRR26065905,21L (BA.2),F,1,NA,2/14/22,China,Hong Kong,3
+Chen_2024,SRR26065907,21L (BA.2),M,2,NA,2/10/22,China,Hong Kong,2
+Chen_2024,SRR26065909,21L (BA.2),F,8,NA,2/9/22,China,Hong Kong,1
+Chen_2024,SRR26065916,21L (BA.2),F,33,NA,2/10/22,China,Hong Kong,4
+Chen_2024,SRR26065925,21L (BA.2),F,73,NA,2/8/22,China,Hong Kong,3
+Chen_2024,SRR26065927,21L (BA.2),F,74,NA,2/8/22,China,Hong Kong,2
+Chen_2024,SRR26065929,21L (BA.2),M,7,NA,2/7/22,China,Hong Kong,1
+Chen_2024,SRR26065936,21L (BA.2),F,62,NA,2/7/22,China,Hong Kong,1
+Chen_2024,SRR26065934,21L (BA.2),F,64,NA,2/7/22,China,Hong Kong,2
+Chen_2024,SRR26065942,21L (BA.2),F,6,NA,2/5/22,China,Hong Kong,3
+Chen_2024,SRR26065940,21L (BA.2),F,5,NA,2/6/22,China,Hong Kong,4
+Chen_2024,SRR26065945,21L (BA.2),F,14,NA,2/7/22,China,Hong Kong,1
+Chen_2024,SRR26065944,21L (BA.2),F,51,NA,1/25/22,China,Hong Kong,2
+Chen_2024,SRR26065949,21L (BA.2),M,67,NA,2/6/22,China,Hong Kong,3
+Chen_2024,SRR26065951,21L (BA.2),F,37,NA,2/5/22,China,Hong Kong,4
+Chen_2024,SRR26065953,21L (BA.2),M,8,NA,2/5/22,China,Hong Kong,4
+Chen_2024,SRR26065956,21L (BA.2),F,40,NA,2/4/22,China,Hong Kong,3
+Chen_2024,SRR26065960,21L (BA.2),F,32,NA,2/3/22,China,Hong Kong,2
+Chen_2024,SRR26065974,21L (BA.2),M,78,NA,3/11/22,China,Hong Kong,1
+Chen_2024,SRR26065976,21L (BA.2),M,71,NA,3/10/22,China,Hong Kong,4
+Chen_2024,SRR26065978,21L (BA.2),M,70,NA,3/9/22,China,Hong Kong,3
+Chen_2024,SRR26065980,21L (BA.2),M,0,NA,3/2/22,China,Hong Kong,2
+Chen_2024,SRR26065982,21L (BA.2),M,75,NA,3/4/22,China,Hong Kong,1
+Singh_2024,OR016161,22D (BA.2.75),M,22,NA,8/30/22,India,Durg ,NA
+Singh_2024,OR016162,22D (BA.2.75),M,17,NA,8/27/22,India,Raipur ,NA
+Singh_2024,OR016163,22D (BA.2.75),M,9,NA,8/30/22,India,Raipur ,NA
+Singh_2024,OR016160,22D (BA.2.75),M,40,NA,8/27/22,India,Raipur ,NA
+Singh_2024,OR016164,22D (BA.2.75),M,26,NA,5/9/22,India,Raigarh ,NA
+Zhao_2024,OR295240,21L (BA.2),F,3,NA,3/10/22,China,Nanjing ,NA
+Zhao_2024,OR295239,21L (BA.2),M,69,NA,3/10/22,China,Nanjing ,NA
+Zhao_2024,OR295242,21L (BA.2),F,25,NA,3/10/22,China,Nanjing ,NA
+Zhao_2024,OR295243,21L (BA.2),M,62,NA,3/12/22,China,Nanjing ,NA
+Zhao_2024,OR295241,21L (BA.2),F,31,NA,3/10/22,China,Nanjing ,NA
+Zhao_2024,OR295244,21L (BA.2),M,33,NA,3/13/22,China,Nanjing ,NA
+Zhao_2024,OR295245,21L (BA.2),F,36,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295247,21L (BA.2),F,70,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295248,21L (BA.2),F,34,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295246,21L (BA.2),F,32,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295249,21L (BA.2),F,29,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295250,21L (BA.2),F,7,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295252,21L (BA.2),M,28,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295254,21L (BA.2),M,13,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295251,21L (BA.2),F,17,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295258,21L (BA.2),F,26,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295259,21L (BA.2),M,12,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295260,21L (BA.2),F,40,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295263,21L (BA.2),M,37,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295262,21L (BA.2),M,17,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295265,21L (BA.2),M,31,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295267,21L (BA.2),M,37,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295266,21L (BA.2),F,71,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295268,21L (BA.2),F,60,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295269,21L (BA.2),M,37,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295270,21L (BA.2),F,31,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295272,21L (BA.2),F,33,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295273,21L (BA.2),M,91,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295274,21L (BA.2),F,55,NA,3/15/22,China,Nanjing ,NA
+Zhao_2024,OR295275,21L (BA.2),F,53,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295277,21L (BA.2),F,32,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295276,21L (BA.2),M,60,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295278,21L (BA.2),M,2,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295279,21L (BA.2),F,29,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295282,21L (BA.2),M,49,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295281,21L (BA.2),F,46,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295280,21L (BA.2),M,10,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295283,21L (BA.2),F,38,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295284,21L (BA.2),F,1,NA,3/16/22,China,Nanjing ,NA
+Zhao_2024,OR295286,21L (BA.2),F,85,NA,3/17/22,China,Nanjing ,NA
+Zhao_2024,OR295285,21L (BA.2),F,37,NA,3/17/22,China,Nanjing ,NA
+Zhao_2024,OR295287,21L (BA.2),M,35,NA,3/17/22,China,Nanjing ,NA
+Zhao_2024,OR295289,21L (BA.2),M,42,NA,3/17/22,China,Nanjing ,NA
+Zhao_2024,OR295290,21L (BA.2),M,74,NA,3/18/22,China,Nanjing ,NA
+Zhao_2024,OR295291,21L (BA.2),M,52,NA,3/18/22,China,Nanjing ,NA
+Zhao_2024,OR295292,21L (BA.2),M,32,NA,3/18/22,China,Nanjing ,NA
+Zhao_2024,OR295294,21L (BA.2),M,21,NA,3/19/22,China,Nanjing ,NA
+Zhao_2024,OR295293,21L (BA.2),F,63,NA,3/19/22,China,Nanjing ,NA
+Zhao_2024,OR295295,21L (BA.2),F,36,NA,3/19/22,China,Nanjing ,NA
+Zhao_2024,OR295296,21L (BA.2),M,35,NA,3/18/22,China,Nanjing ,NA
+Zhao_2024,OR295298,21L (BA.2),M,56,NA,3/19/22,China,Nanjing ,NA
+Zhao_2024,OR295297,21L (BA.2),F,52,NA,3/19/22,China,Nanjing ,NA
+Zhao_2024,OR295299,21L (BA.2),F,51,NA,3/19/22,China,Nanjing ,NA
+Zhao_2024,OR295300,21L (BA.2),F,32,NA,3/19/22,China,Nanjing ,NA
+Zhao_2024,OR295301,21L (BA.2),F,56,NA,3/19/22,China,Nanjing ,NA
+Zhao_2024,OR295302,21L (BA.2),M,26,NA,3/20/22,China,Nanjing ,NA
+Zhao_2024,OR295303,21L (BA.2),M,29,NA,3/20/22,China,Nanjing ,NA
+Zhao_2024,OR295304,21L (BA.2),M,17,NA,3/20/22,China,Nanjing ,NA
+Zhao_2024,OR295305,21L (BA.2),M,33,NA,3/23/22,China,Nanjing ,NA
+Zhao_2024,OR295257,21L (BA.2),F,49,NA,3/14/22,China,Nanjing ,NA
+Zhao_2024,OR295264,21L (BA.2),M,33,NA,3/15/22,China,Nanjing ,NA
+Gonzalez_Reiche_2023,ON196014,21K (BA.1),M,62,Immunocompromised,2/14/22,USA,New York,1
+Gonzalez_Reiche_2023,ON220529,21K (BA.1),M,62,Immunocompromised,3/10/22,USA,New York,2
+Gonzalez_Reiche_2023,ON193425,21K (BA.1),M,62,Immunocompromised,3/2/22,USA,New York,3
+Gonzalez_Reiche_2023,ON220533,21K (BA.1),F,68,Immunocompromised,3/14/22,USA,New York,4
+Gonzalez_Reiche_2023,ON220539,21K (BA.1),M,62,Immunocompromised,2/6/22,USA,New York,4
+Gonzalez_Reiche_2023,ON619382,21K (BA.1),F,62,Immunocompromised,5/2/22,USA,New York,3
+Gonzalez_Reiche_2023,ON220571,21K (BA.1),M,62,Immunocompromised,3/19/22,USA,New York,2
+Gonzalez_Reiche_2023,ON220548,21K (BA.1),M,62,Immunocompromised,1/20/22,USA,New York,1
+Gonzalez_Reiche_2023,ON934030,21K (BA.1),M,37,Immunocompromised,4/21/22,USA,New York,1
+Gonzalez_Reiche_2023,ON934538,21K (BA.1),M,37,Immunocompromised,4/8/22,USA,New York,2
+Gonzalez_Reiche_2023,ON854465,21K (BA.1),F,62,Immunocompromised,4/18/22,USA,New York,3
+Gonzalez_Reiche_2023,ON934577,21K (BA.1),M,38,Immunocompromised,4/18/22,USA,New York,4
+Gonzalez_Reiche_2023,ON934607,21K (BA.1),M,38,Immunocompromised,5/7/22,USA,New York,4
+Manuto_2024,OR841414,21K (BA.1),M,55,Immunocompromised,2/15/22,Italy,Padua,NA
+Manuto_2024,OR841417,21K (BA.1),M,49,Immunocompromised,12/26/21,Italy,Padua,NA
+Manuto_2024,OR841416,21K (BA.1),M,49,Immunocompromised,12/23/21,Italy,Padua,NA
+Manuto_2024,OR841422,21L (BA.2),M,58,Immunocompromised,3/29/22,Italy,Padua,NA
+Manuto_2024,OR841427,21K (BA.1),M,49,Immunocompromised,12/30/21,Italy,Padua,NA
+Manuto_2024,OR841429,21K (BA.1),M,49,Immunocompromised,1/5/22,Italy,Padua,NA
+Manuto_2024,OR841430,21K (BA.1),M,49,Immunocompromised,1/14/22,Italy,Padua,NA
+Manuto_2024,OR841431,21K (BA.1),M,55,Immunocompromised,2/18/22,Italy,Padua,NA
+Manuto_2024,OR841432,21K (BA.1),M,55,Immunocompromised,2/22/22,Italy,Padua,NA
+Manuto_2024,OR841433,21L (BA.2),M,58,Immunocompromised,1/4/22,Italy,Padua,NA
+Manuto_2024,OR841444,21K (BA.1),F,69,Immunocompromised,2/14/22,Italy,Padua,NA
+Manuto_2024,OR841449,21K (BA.1),F,69,Immunocompromised,2/18/22,Italy,Padua,NA
+Manuto_2024,OR841451,21K (BA.1),F,69,Immunocompromised,2/21/22,Italy,Padua,NA
+Manuto_2024,OR841418,21K (BA.1),F,48,Immuconpetent,2/22/22,Italy,Padua,NA
+Manuto_2024,OR841419,21K (BA.1),M,93,Immuconpetent,3/4/22,Italy,Padua,NA
+Manuto_2024,OR841421,21K (BA.1),M,93,Immuconpetent,3/18/22,Italy,Padua,NA
+Manuto_2024,OR841420,21K (BA.1),M,93,Immuconpetent,3/14/22,Italy,Padua,NA
+Manuto_2024,OR841434,21K (BA.1),F,48,Immuconpetent,2/15/22,Italy,Padua,NA
+Manuto_2024,OR841446,21K (BA.1),M,70,Immuconpetent,2/15/22,Italy,Padua,NA
+Manuto_2024,OR841445,21K (BA.1),M,76,Immuconpetent,2/15/22,Italy,Padua,NA
+Manuto_2024,OR841447,21K (BA.1),F,82,Immuconpetent,2/16/22,Italy,Padua,NA
+Manuto_2024,OR841448,21K (BA.1),F,82,Immuconpetent,2/18/22,Italy,Padua,NA
+Manuto_2024,OR841450,21K (BA.1),F,48,Immuconpetent,2/18/22,Italy,Padua,NA
+Manuto_2024,OR841452,21L (BA.2),M,83,Immuconpetent,3/15/22,Italy,Padua,NA
+Manuto_2024,OR841453,21L (BA.2),M,74,Immuconpetent,3/15/22,Italy,Padua,NA
+Manuto_2024,OR841454,21K (BA.1),F,59,Immuconpetent,3/16/22,Italy,Padua,NA
+Manuto_2024,OR841457,21L (BA.2),F,66,Immuconpetent,3/16/22,Italy,Padua,NA
+Manuto_2024,OR841455,21K (BA.1),F,59,Immuconpetent,3/18/22,Italy,Padua,NA
+Manuto_2024,OR841456,21L (BA.2),M,89,Immuconpetent,3/17/22,Italy,Padua,NA
+Manuto_2024,OR841458,21K (BA.1),F,73,Immuconpetent,3/21/22,Italy,Padua,NA
+Manuto_2024,OR841459,21L (BA.2),M,74,Immuconpetent,3/22/22,Italy,Padua,NA
+Manuto_2024,OR841460,21L (BA.2),M,83,Immuconpetent,3/22/22,Italy,Padua,NA
+Manuto_2024,OR841463,21K (BA.1),F,73,Immuconpetent,3/28/22,Italy,Padua,NA
+Manuto_2024,OR841462,21L (BA.2),M,89,Immuconpetent,3/23/22,Italy,Padua,NA
+Manuto_2024,OR841461,21K (BA.1),F,59,Immuconpetent,3/23/22,Italy,Padua,NA
+Manuto_2024,OR841464,21L (BA.2),F,85,Immuconpetent,3/29/22,Italy,Padua,NA
+Manuto_2024,OR841465,21L (BA.2),F,85,Immuconpetent,1/4/22,Italy,Padua,NA
+Sayama_2024,DRR438334,21K (BA.1),F,34,Immuconpetent,2/1/22,Japan,Miyagi Prefecture,NA

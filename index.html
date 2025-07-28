@@ -1,0 +1,89 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Influenza Scroll-Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- D3 v7 CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+</head>
+<body>
+
+<!-- ─── Top Navigation ────────────────────────────────────────────────────── -->
+<nav id="topnav">
+  <div class="nav-left">
+    <input id="searchBox" type="text" placeholder="Search PMIDs or accessions… (comma separated)"/>
+    <select id="globalFilter" multiple></select>
+  </div>
+  <button id="exportCSV">Export CSV</button>
+</nav>
+
+<!-- ─── Main Panels (scroll-snap) ─────────────────────────────────────────── -->
+<main>
+  <!-- Panel 1 – Phylogenetic Tree -->
+  <section id="treePanel" class="panel">
+    <h2>Phylogenetic Tree</h2>
+    <div class="settings">
+      <label>Colour (Tip): <select id="treeColour"></select></label>
+      <label>Size (Tip): <select id="treeSize"></select></label>
+      <label>Shape (Tip): <select id="treeShape"></select></label>
+      <label>Layout:
+        <select id="treeLayout">
+          <option value="rectangular">Rectangle</option>
+          <option value="radial">Radial</option>
+          <option value="unrooted">Unrooted</option>
+        </select>
+      </label>
+    </div>
+    <svg id="treeSvg"></svg>
+  </section>
+
+  <!-- Panel 2 – Pyramid / Scatter -->
+  <section id="chartPanel" class="panel">
+    <h2>Pyramid / Scatter</h2>
+    <div class="settings">
+      <label>
+        <input type="radio" name="chartMode" value="pyramid" checked/> Pyramid
+      </label>
+      <label>
+        <input type="radio" name="chartMode" value="scatter"/> Scatter
+      </label>
+      <label>X-axis: <select id="chartX"></select></label>
+      <label>Y-axis: <select id="chartY"></select></label>
+      <label>Colour: <select id="chartColour"></select></label>
+      <label>Shape (scatter): <select id="chartShape"></select></label>
+    </div>
+    <svg id="chartSvg"></svg>
+  </section>
+
+  <!-- Panel 3 – Heat Map -->
+<main>
+  <section id="heatmapPanel" class="panel">
+    <h2>Heat Map</h2>
+    <div class="settings">
+        <label>Columns:
+          <select id="heatCols" multiple size="5"></select>
+        </label>
+        <label>Colour Scheme:
+          <select id="heatColour">
+            <option value="interpolateViridis" selected>Viridis</option>
+            <option value="interpolateInferno">Inferno</option>
+            <option value="interpolateMagma">Magma</option>
+            <option value="interpolatePlasma">Plasma</option>
+            <option value="interpolateWarm">Warm</option>
+            <option value="interpolateCool">Cool</option>
+            <option value="interpolateCividis">Cividis</option>
+            <option value="interpolateRainbow">Rainbow</option>
+            <option value="interpolateSinebow">Sinebow</option>
+          </select>
+        </label>
+    </div>
+    <svg id="heatSvg"></svg>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
