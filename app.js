@@ -80,9 +80,7 @@ function populateControls () {
     state.descriptors.forEach(d => sel.add(new Option(d, d)));
   });
 
-  // Heat‑map columns (multi‑select)
-  const hc = document.getElementById("heatCols");
-  state.descriptors.forEach(d => hc.add(new Option(d, d)));
+  // Heat-map columns control is removed as it's no longer needed.
 }
 
 /* ─── Tree Rendering ──────────────────────────────────────────────────── */
@@ -224,31 +222,59 @@ function drawChart () {
   }
 }
 
-/* ─── Heat Map Panel ──────────────────────────────────────────────────── */
+/* ─── Heat Map Panel (UPDATED) ────────────────────────────────────────── */
 function drawHeat () {
   const svg = d3.select("#heatSvg");
   svg.selectAll("*").remove();
   const { width, height } = svg.node().getBoundingClientRect();
-  const cols = Array.from(document.getElementById("heatCols").selectedOptions).map(o => o.value);
-  if (!cols.length) return;
-  const rows = state.papers.map(p => p.pmid);
+  const margin = { top: 20, right: 20, bottom: 120, left: 120 };
+  const graphWidth = width - margin.left - margin.right;
+  const graphHeight = height - margin.top - margin.bottom;
 
-  const x = d3.scaleBand().domain(cols).range([80, width]).padding(0.05);
-  const y = d3.scaleBand().domain(rows).range([0, height - 40]).padding(0.05);
-  const colour = d3.scaleSequential(d3.interpolateViridis).domain([0, 1]);
+  // Y-axis: all descriptor columns. X-axis: unique paper PMIDs.
+  const y_elements = state.descriptors;
+  const x_elements = unique(state.sequences.map(s => s.paper));
 
-  // axes
-  svg.append("g").attr("transform", `translate(0,${height - 40})`).call(d3.axisBottom(x));
-  svg.append("g").attr("transform", "translate(80,0)").call(d3.axisLeft(y));
+  if (!y_elements.length || !x_elements.length) return;
+  
+  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-  rows.forEach(r => {
-    cols.forEach(c => {
-      const seqs = state.sequences.filter(s => s.paper === r);
+  // X Scale (PMIDs)
+  const x = d3.scaleBand()
+    .domain(x_elements)
+    .range([0, graphWidth])
+    .padding(0.05);
+
+  // Y Scale (Descriptors)
+  const y = d3.scaleBand()
+    .domain(y_elements)
+    .range([0, graphHeight])
+    .padding(0.05);
+
+  // Colour Scale from selector
+  const colourScheme = document.getElementById("heatColour").value;
+  const colour = d3.scaleSequential(d3[colourScheme]).domain([0, 1]);
+
+  // X Axis
+  g.append("g")
+    .attr("transform", `translate(0,${graphHeight})`)
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+      .attr("transform", "translate(-10,0)rotate(-45)")
+      .style("text-anchor", "end");
+
+  // Y Axis
+  g.append("g").call(d3.axisLeft(y));
+
+  // Draw heatmap rectangles
+  x_elements.forEach(pmid => {
+    y_elements.forEach(descriptor => {
+      // Get all sequences associated with the current pmid
+      const seqs = state.sequences.filter(s => s.paper === pmid);
       
-      // Check for presence of a meaningful value.
-      // It's "present" if at least one sequence for this paper has a value that isn't null, undefined, empty, or 'NA'.
+      // Presence/Absence: "present" if at least one sequence has a non-'NA' value.
       const isPresent = seqs.some(s => {
-        const val = s.descriptors[c];
+        const val = s.descriptors[descriptor];
         if (val === null || val === undefined) return false;
         const stringVal = String(val).trim();
         return stringVal !== '' && stringVal.toUpperCase() !== 'NA';
@@ -256,21 +282,21 @@ function drawHeat () {
       
       const value = isPresent ? 1 : 0;
 
-      svg.append("rect")
-        .attr("x", x(c))
-        .attr("y", y(r))
+      g.append("rect")
+        .attr("x", x(pmid))
+        .attr("y", y(descriptor))
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
         .attr("fill", colour(value))
         .on("mouseover", function () { d3.select(this).attr("stroke", "#000"); })
         .on("mouseout", function () { d3.select(this).attr("stroke", null); })
         .append("title")
-          .text(`${r} – ${c}: ${value ? "present" : "absent"}`);
+          .text(`${pmid} – ${descriptor}: ${value ? "present" : "absent"}`);
     });
   });
 }
 
-/* ─── Event Binding ───────────────────────────────────────────────────── */
+/* ─── Event Binding (UPDATED) ────────────────────────────────────────── */
 function bindEvents () {
   document.getElementById("exportCSV").addEventListener("click", exportCSV);
 
@@ -285,8 +311,8 @@ function bindEvents () {
   });
   document.querySelectorAll("input[name='chartMode']").forEach(r => r.addEventListener("change", drawChart));
 
-  // Heatmap columns
-  document.getElementById("heatCols").addEventListener("change", drawHeat);
+  // Heatmap controls
+  document.getElementById("heatColour").addEventListener("change", drawHeat);
 
   // Search (placeholder ‑ filter by accession or pmid)
   document.getElementById("searchBox").addEventListener("change", e => {
