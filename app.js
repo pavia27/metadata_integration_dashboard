@@ -38,7 +38,7 @@ function exportCSV () {
   const rows = [["accession", "pmid", ...state.descriptors]];
   state.sequences.forEach(s => {
     const d = state.descriptors.map(k => s.descriptors[k]);
-    rows.push([s.accession, s.pmid, ...d]); // Corrected: s.paper -> s.pmid
+    rows.push([s.accession, s.pmid, ...d]);
   });
   const csv = rows.map(r => r.join(",")).join("\n");
   const blob = new Blob([csv], { type: "text/csv" });
@@ -221,18 +221,18 @@ function drawChart () {
   }
 }
 
-/* ─── Heat Map Panel ──────────────────────────────────────────────────── */
+/* ─── Heat Map Panel (UPDATED with Legend) ────────────────────────────── */
 function drawHeat () {
   const svg = d3.select("#heatSvg");
   svg.selectAll("*").remove();
   const { width, height } = svg.node().getBoundingClientRect();
-  const margin = { top: 20, right: 20, bottom: 120, left: 120 };
+  const margin = { top: 20, right: 20, bottom: 160, left: 120 }; // Increased bottom margin for legend
   const graphWidth = width - margin.left - margin.right;
   const graphHeight = height - margin.top - margin.bottom;
 
   // Y-axis: all descriptor columns. X-axis: unique paper PMIDs.
   const y_elements = state.descriptors;
-  const x_elements = unique(state.sequences.map(s => s.pmid)); // Corrected: s.paper -> s.pmid
+  const x_elements = unique(state.sequences.map(s => s.pmid));
 
   if (!y_elements.length || !x_elements.length) return;
   
@@ -269,7 +269,7 @@ function drawHeat () {
   x_elements.forEach(pmid => {
     y_elements.forEach(descriptor => {
       // Get all sequences associated with the current pmid
-      const seqs = state.sequences.filter(s => s.pmid === pmid); // Corrected: s.paper -> s.pmid
+      const seqs = state.sequences.filter(s => s.pmid === pmid);
       
       // Presence/Absence: "present" if at least one sequence has a non-'NA' value.
       const isPresent = seqs.some(s => {
@@ -293,6 +293,35 @@ function drawHeat () {
           .text(`${pmid} – ${descriptor}: ${value ? "present" : "absent"}`);
     });
   });
+
+  // Add Legend at the bottom
+  const legend = g.append("g")
+    .attr("class", "legend")
+    .attr("transform", `translate(0, ${graphHeight + 100})`); // Position below x-axis
+
+  const legendData = [
+    { value: 1, label: "Present (Data Available)" },
+    { value: 0, label: "Absent (NA or Missing)" }
+  ];
+
+  const legendItems = legend.selectAll(".legend-item")
+    .data(legendData)
+    .enter()
+    .append("g")
+    .attr("class", "legend-item")
+    .attr("transform", (d, i) => `translate(${i * 220}, 0)`); // Space out legend items
+
+  legendItems.append("rect")
+    .attr("width", 18)
+    .attr("height", 18)
+    .attr("fill", d => colour(d.value));
+
+  legendItems.append("text")
+    .attr("x", 24)
+    .attr("y", 14)
+    .text(d => d.label)
+    .style("font-size", "14px")
+    .attr("alignment-baseline", "middle");
 }
 
 /* ─── Event Binding ───────────────────────────────────────────────────── */
@@ -313,7 +342,7 @@ function bindEvents () {
   // Heatmap controls
   document.getElementById("heatColour").addEventListener("change", drawHeat);
 
-  // Search (UPDATED for non-destructive filtering)
+  // Search
   document.getElementById("searchBox").addEventListener("input", e => {
     const tokens = e.target.value.split(",").map(t => t.trim().toUpperCase()).filter(Boolean);
     
@@ -322,7 +351,7 @@ function bindEvents () {
     } else {
       state.sequences = state.allSequences.filter(s => 
         tokens.includes(s.accession.toUpperCase()) || 
-        (s.pmid && tokens.includes(s.pmid.toUpperCase())) // Corrected: s.paper -> s.pmid
+        (s.pmid && tokens.includes(s.pmid.toUpperCase()))
       );
     }
     
@@ -342,7 +371,6 @@ function loadData () {
 
     state.descriptors = Object.keys(raw[0]).filter(k => !["pmid","accession"].includes(k));
 
-    // Correctly map `d.pmid` instead of `d.paper`
     state.allSequences = raw.map(d => ({
       accession: d.accession,
       pmid: d.pmid, 
@@ -357,7 +385,6 @@ function loadData () {
     // Initially, the filtered list is the same as the master list
     state.sequences = [...state.allSequences];
     
-    // Correctly derive papers from `d.pmid`
     state.papers = unique(raw.map(d => d.pmid)).map(pmid => ({ pmid }));
 
     populateControls();
