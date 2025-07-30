@@ -20,12 +20,13 @@ const dummyTree = {
 
 /* ─── Global State ─────────────────────────────────────────────────────── */
 const state = {
-  sequences: [],      // populated from CSV
-  papers: [],         // derived from sequences
+  allSequences: [],   // Master list of all sequences, does not change after load
+  sequences: [],      // Populated from CSV, can be filtered by user actions
+  papers: [],         // Derived from sequences
   tree: dummyTree,
   activePanel: null,
   filters: {},
-  descriptors: []     // populated from CSV header
+  descriptors: []     // Populated from CSV header
 };
 
 /* ─── Utility Helpers ──────────────────────────────────────────────────── */
@@ -37,7 +38,7 @@ function exportCSV () {
   const rows = [["accession", "pmid", ...state.descriptors]];
   state.sequences.forEach(s => {
     const d = state.descriptors.map(k => s.descriptors[k]);
-    rows.push([s.accession, s.paper, ...d]);
+    rows.push([s.accession, s.pmid, ...d]); // Corrected: s.paper -> s.pmid
   });
   const csv = rows.map(r => r.join(",")).join("\n");
   const blob = new Blob([csv], { type: "text/csv" });
@@ -79,8 +80,6 @@ function populateControls () {
     const sel = document.getElementById(id);
     state.descriptors.forEach(d => sel.add(new Option(d, d)));
   });
-
-  // Heat-map columns control is removed as it's no longer needed.
 }
 
 /* ─── Tree Rendering ──────────────────────────────────────────────────── */
@@ -222,7 +221,7 @@ function drawChart () {
   }
 }
 
-/* ─── Heat Map Panel (UPDATED) ────────────────────────────────────────── */
+/* ─── Heat Map Panel ──────────────────────────────────────────────────── */
 function drawHeat () {
   const svg = d3.select("#heatSvg");
   svg.selectAll("*").remove();
@@ -233,7 +232,7 @@ function drawHeat () {
 
   // Y-axis: all descriptor columns. X-axis: unique paper PMIDs.
   const y_elements = state.descriptors;
-  const x_elements = unique(state.sequences.map(s => s.paper));
+  const x_elements = unique(state.sequences.map(s => s.pmid)); // Corrected: s.paper -> s.pmid
 
   if (!y_elements.length || !x_elements.length) return;
   
@@ -270,7 +269,7 @@ function drawHeat () {
   x_elements.forEach(pmid => {
     y_elements.forEach(descriptor => {
       // Get all sequences associated with the current pmid
-      const seqs = state.sequences.filter(s => s.paper === pmid);
+      const seqs = state.sequences.filter(s => s.pmid === pmid); // Corrected: s.paper -> s.pmid
       
       // Presence/Absence: "present" if at least one sequence has a non-'NA' value.
       const isPresent = seqs.some(s => {
@@ -296,7 +295,7 @@ function drawHeat () {
   });
 }
 
-/* ─── Event Binding (UPDATED) ────────────────────────────────────────── */
+/* ─── Event Binding ───────────────────────────────────────────────────── */
 function bindEvents () {
   document.getElementById("exportCSV").addEventListener("click", exportCSV);
 
@@ -314,11 +313,19 @@ function bindEvents () {
   // Heatmap controls
   document.getElementById("heatColour").addEventListener("change", drawHeat);
 
-  // Search (placeholder ‑ filter by accession or pmid)
-  document.getElementById("searchBox").addEventListener("change", e => {
+  // Search (UPDATED for non-destructive filtering)
+  document.getElementById("searchBox").addEventListener("input", e => {
     const tokens = e.target.value.split(",").map(t => t.trim().toUpperCase()).filter(Boolean);
-    if (!tokens.length) return;
-    state.sequences = state.sequences.filter(s => tokens.includes(s.accession.toUpperCase()) || tokens.includes(s.paper.toUpperCase()));
+    
+    if (tokens.length === 0) {
+      state.sequences = [...state.allSequences]; // Reset to all sequences if search is empty
+    } else {
+      state.sequences = state.allSequences.filter(s => 
+        tokens.includes(s.accession.toUpperCase()) || 
+        (s.pmid && tokens.includes(s.pmid.toUpperCase())) // Corrected: s.paper -> s.pmid
+      );
+    }
+    
     drawTree();
     drawChart();
     drawHeat();
@@ -328,16 +335,17 @@ function bindEvents () {
 /* ─── Data Loading & Bootstrapping ────────────────────────────────────── */
 function loadData () {
   /* Provide a CSV named "sequences.csv" in /data or root folder.
-     Expected columns: accession,paper,<descriptor1>,<descriptor2>,...
+     Expected columns: accession,pmid,<descriptor1>,<descriptor2>,...
   */
   d3.csv("sequences.csv").then(raw => {
     if (!raw.length) throw new Error("CSV empty or not found");
 
     state.descriptors = Object.keys(raw[0]).filter(k => !["pmid","accession"].includes(k));
 
-    state.sequences = raw.map(d => ({
+    // Correctly map `d.pmid` instead of `d.paper`
+    state.allSequences = raw.map(d => ({
       accession: d.accession,
-      paper: d.paper,
+      pmid: d.pmid, 
       descriptors: Object.fromEntries(Object.entries(d)
         .filter(([k]) => !["pmid","accession"].includes(k))
         .map(([k, v]) => {
@@ -346,7 +354,11 @@ function loadData () {
         }))
     }));
 
-    state.papers = unique(raw.map(d => d.paper)).map(pmid => ({ pmid }));
+    // Initially, the filtered list is the same as the master list
+    state.sequences = [...state.allSequences];
+    
+    // Correctly derive papers from `d.pmid`
+    state.papers = unique(raw.map(d => d.pmid)).map(pmid => ({ pmid }));
 
     populateControls();
     createObserver();
