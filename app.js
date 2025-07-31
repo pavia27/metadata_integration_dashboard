@@ -20,18 +20,52 @@ const dummyTree = {
 
 /* ─── Global State ─────────────────────────────────────────────────────── */
 const state = {
-  allSequences: [],   // Master list of all sequences, does not change after load
-  sequences: [],      // Populated from CSV, can be filtered by user actions
-  papers: [],         // Derived from sequences
+  allSequences: [],
+  sequences: [],
+  papers: [],
   tree: dummyTree,
   activePanel: null,
   filters: {},
-  descriptors: []     // Populated from CSV header
+  descriptors: [],
+  descriptorInfo: {} // New: To hold info about each column (type, domain)
 };
 
 /* ─── Utility Helpers ──────────────────────────────────────────────────── */
 const unique = arr => [...new Set(arr)];
 const hash = str => str ? Array.from(String(str)).reduce((h, c) => h + c.charCodeAt(0), 0) : 0;
+
+/**
+ * New: Analyzes each data column to determine if it's numerical or categorical.
+ * This information is used to build the appropriate chart scales and logic.
+ */
+function analyzeDescriptors() {
+  state.descriptors.forEach(key => {
+    const values = state.allSequences
+      .map(s => s.descriptors[key])
+      .filter(v => v !== null && v !== undefined && String(v).trim() !== '' && String(v).toUpperCase() !== 'NA');
+
+    if (values.length === 0) {
+      state.descriptorInfo[key] = { type: 'categorical', domain: [] };
+      return;
+    }
+
+    let numericCount = 0;
+    values.forEach(v => {
+      if (!isNaN(parseFloat(v)) && isFinite(v)) {
+        numericCount++;
+      }
+    });
+
+    const uniqueValues = unique(values);
+    const isNumerical = (numericCount / values.length > 0.8) && uniqueValues.length > 6;
+    const type = isNumerical ? 'numerical' : 'categorical';
+
+    state.descriptorInfo[key] = {
+      type,
+      domain: type === 'numerical' ? d3.extent(values.map(v => +v)) : uniqueValues.sort()
+    };
+  });
+}
 
 /* CSV export of filtered sequences */
 function exportCSV () {
@@ -146,88 +180,147 @@ function drawTree () {
       .text(d => d.data.name);
 }
 
-/* ─── Chart Panel ─────────────────────────────────────────────────────── */
-function drawChart () {
+/* ─── Chart Panel (REWRITTEN) ─────────────────────────────────────────── */
+
+/**
+ * Main dispatcher for the chart panel. It checks the selected options
+ * and data types, then calls the appropriate drawing function.
+ */
+function drawChart() {
   const svg = d3.select("#chartSvg");
   svg.selectAll("*").remove();
-  const { width, height } = svg.node().getBoundingClientRect();
+  
   const mode = document.querySelector("input[name='chartMode']:checked").value;
   const xDesc = document.getElementById("chartX").value;
   const yDesc = document.getElementById("chartY").value;
   const colourDesc = document.getElementById("chartColour").value;
 
-  if (mode === "pyramid") {
-    /* ── Histogram Pyramid ─ */
-    const vals = state.sequences.map(s => +s.descriptors[xDesc]).filter(v => !isNaN(v));
-    const bins = d3.bin().thresholds(10)(vals);
+  const xInfo = state.descriptorInfo[xDesc];
+  const yInfo = state.descriptorInfo[yDesc];
 
-    const y = d3.scaleBand()
-      .domain(bins.map(b => b.x0))
-      .range([0, height])
-      .padding(0.1);
-    const x = d3.scaleLinear()
-      .domain([0, d3.max(bins, b => b.length)])
-      .range([0, width / 2 - 40]);
+  if (!xInfo || !yInfo) return; // Exit if info not ready
 
-    const g = svg.append("g").attr("transform", `translate(${width / 2},0)`);
-
-    // right side
-    g.selectAll(".barR")
-      .data(bins)
-      .enter().append("rect")
-        .attr("x", 0)
-        .attr("y", b => y(b.x0))
-        .attr("width", b => x(b.length))
-        .attr("height", y.bandwidth())
-        .attr("fill", "#69b3a2");
-
-    // left side (mirror)
-    g.selectAll(".barL")
-      .data(bins)
-      .enter().append("rect")
-        .attr("x", b => -x(b.length))
-        .attr("y", b => y(b.x0))
-        .attr("width", b => x(b.length))
-        .attr("height", y.bandwidth())
-        .attr("fill", "#4c78a8");
+  if (mode === 'pyramid') {
+    drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo, colourDesc);
   } else {
-    /* ── Scatter Plot ─ */
-    const xVals = state.sequences.map(s => +s.descriptors[xDesc]).filter(v => !isNaN(v));
-    const yVals = state.sequences.map(s => +s.descriptors[yDesc]).filter(v => !isNaN(v));
-    if (!xVals.length || !yVals.length) return;
-
-    const x = d3.scaleLinear()
-      .domain(d3.extent(xVals)).nice()
-      .range([40, width - 20]);
-    const y = d3.scaleLinear()
-      .domain(d3.extent(yVals)).nice()
-      .range([height - 30, 20]);
-
-    svg.append("g")
-      .attr("transform", `translate(0,${height - 30})`)
-      .call(d3.axisBottom(x));
-    svg.append("g")
-      .attr("transform", `translate(40,0)`)
-      .call(d3.axisLeft(y));
-
-    svg.selectAll("circle")
-      .data(state.sequences)
-      .enter().append("circle")
-        .attr("cx", d => x(+d.descriptors[xDesc]))
-        .attr("cy", d => y(+d.descriptors[yDesc]))
-        .attr("r", 5)
-        .attr("fill", d => d3.schemeTableau10[hash(d.descriptors[colourDesc]) % 10])
-        .append("title").text(d => d.accession);
+    drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc);
   }
 }
 
-/* ─── Heat Map Panel (UPDATED with size adjustments) ─────────────────── */
+/**
+ * Draws a scatter plot, automatically handling numerical and categorical axes.
+ */
+function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc) {
+  const { width, height } = svg.node().getBoundingClientRect();
+  const margin = { top: 20, right: 20, bottom: 40, left: 60 };
+  const graphWidth = width - margin.left - margin.right;
+  const graphHeight = height - margin.top - margin.bottom;
+  
+  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // Create X scale based on data type
+  const xScale = xInfo.type === 'numerical'
+    ? d3.scaleLinear().domain(xInfo.domain).nice().range([0, graphWidth])
+    : d3.scalePoint().domain(xInfo.domain).range([0, graphWidth]).padding(0.5);
+
+  // Create Y scale based on data type
+  const yScale = yInfo.type === 'numerical'
+    ? d3.scaleLinear().domain(yInfo.domain).nice().range([graphHeight, 0])
+    : d3.scalePoint().domain(yInfo.domain).range([graphHeight, 0]).padding(0.5);
+
+  // Draw axes
+  g.append("g").attr("transform", `translate(0,${graphHeight})`).call(d3.axisBottom(xScale));
+  g.append("g").call(d3.axisLeft(yScale));
+
+  // Filter out invalid data for plotting
+  const plotData = state.sequences.filter(d => {
+    const xVal = d.descriptors[xDesc];
+    const yVal = d.descriptors[yDesc];
+    return xVal !== null && xVal !== undefined && String(xVal).toUpperCase() !== 'NA' &&
+           yVal !== null && yVal !== undefined && String(yVal).toUpperCase() !== 'NA';
+  });
+
+  // Draw points
+  g.selectAll("circle")
+    .data(plotData)
+    .enter().append("circle")
+      .attr("cx", d => xScale(d.descriptors[xDesc]))
+      .attr("cy", d => yScale(d.descriptors[yDesc]))
+      .attr("r", 5)
+      .attr("fill", d => d3.schemeTableau10[hash(d.descriptors[colourDesc]) % 10])
+      .attr("opacity", 0.7)
+      .append("title").text(d => `${d.accession}\n${xDesc}: ${d.descriptors[xDesc]}\n${yDesc}: ${d.descriptors[yDesc]}`);
+}
+
+/**
+ * Draws a pyramid chart for comparing two categorical variables.
+ */
+function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo, colourDesc) {
+  if (xInfo.type !== 'categorical' || yInfo.type !== 'categorical') {
+    svg.append("text").attr("x", "50%").attr("y", "50%").attr("text-anchor", "middle")
+      .text("Pyramid plot requires categorical data for both X and Y axes.");
+    return;
+  }
+  
+  const { width, height } = svg.node().getBoundingClientRect();
+  const margin = { top: 40, right: 20, bottom: 40, left: 20 };
+  const graphHeight = height - margin.top - margin.bottom;
+
+  // Group and count the data
+  const counts = d3.rollup(state.sequences, v => v.length, d => d.descriptors[xDesc], d => d.descriptors[yDesc]);
+  
+  const xCategories = xInfo.domain;
+  const yCategories = yInfo.domain;
+  
+  const [xCat1, xCat2] = xCategories; // Assumes binary X category for pyramid structure
+
+  let maxCount = 0;
+  yCategories.forEach(yCat => {
+    const count1 = counts.get(xCat1)?.get(yCat) || 0;
+    const count2 = counts.get(xCat2)?.get(yCat) || 0;
+    maxCount = Math.max(maxCount, count1, count2);
+  });
+  
+  const xScale = d3.scaleLinear().domain([-maxCount, maxCount]).range([0, width - margin.left - margin.right]);
+  const yScale = d3.scaleBand().domain(yCategories).range([0, graphHeight]).padding(0.2);
+
+  const g = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+  // Draw bars
+  g.selectAll(".bar-left")
+    .data(yCategories)
+    .enter().append("rect")
+      .attr("class", "bar-left")
+      .attr("x", d => xScale(-(counts.get(xCat1)?.get(d) || 0)))
+      .attr("y", d => yScale(d))
+      .attr("width", d => xScale(0) - xScale(-(counts.get(xCat1)?.get(d) || 0)))
+      .attr("height", yScale.bandwidth())
+      .attr("fill", "#4c78a8");
+
+  g.selectAll(".bar-right")
+    .data(yCategories)
+    .enter().append("rect")
+      .attr("class", "bar-right")
+      .attr("x", xScale(0))
+      .attr("y", d => yScale(d))
+      .attr("width", d => xScale(counts.get(xCat2)?.get(d) || 0) - xScale(0))
+      .attr("height", yScale.bandwidth())
+      .attr("fill", "#69b3a2");
+
+  // Draw center axis and labels
+  g.append("g").call(d3.axisLeft(yScale).tickSize(0)).select(".domain").remove();
+  g.selectAll(".tick text").attr("x", d => width / 2 - margin.left);
+  
+  svg.append("text").attr("x", xScale(0) / 2).attr("y", 20).text(xCat1).attr("text-anchor", "middle");
+  svg.append("text").attr("x", width - xScale(0) / 2).attr("y", 20).text(xCat2).attr("text-anchor", "middle");
+}
+
+/* ─── Heat Map Panel ──────────────────────────────────────────────────── */
 function drawHeat () {
   const svg = d3.select("#heatSvg");
   svg.selectAll("*").remove();
   const { width, height } = svg.node().getBoundingClientRect();
   
-  // Adjusted margins: increased to shrink the heatmap and provide space for larger text
   const margin = { top: 40, right: 80, bottom: 180, left: 150 }; 
   const graphWidth = width - margin.left - margin.right;
   const graphHeight = height - margin.top - margin.bottom;
@@ -252,22 +345,19 @@ function drawHeat () {
   const colourScheme = document.getElementById("heatColour").value;
   const colour = d3.scaleSequential(d3[colourScheme]).domain([0, 1]);
 
-  // X Axis (with increased font size)
   g.append("g")
     .attr("transform", `translate(0,${graphHeight})`)
     .call(d3.axisBottom(x))
     .selectAll("text")
       .attr("transform", "translate(-10,0)rotate(-45)")
       .style("text-anchor", "end")
-      .style("font-size", "14px"); // Font size increased
+      .style("font-size", "14px");
 
-  // Y Axis (with increased font size)
   g.append("g")
     .call(d3.axisLeft(y))
     .selectAll("text")
-      .style("font-size", "14px"); // Font size increased
+      .style("font-size", "14px");
 
-  // Draw heatmap rectangles
   x_elements.forEach(pmid => {
     y_elements.forEach(descriptor => {
       const seqs = state.sequences.filter(s => s.pmid === pmid);
@@ -294,10 +384,9 @@ function drawHeat () {
     });
   });
 
-  // Legend (with increased font size)
   const legend = g.append("g")
     .attr("class", "legend")
-    .attr("transform", `translate(0, ${graphHeight + 120})`); // Adjusted position for new margins
+    .attr("transform", `translate(0, ${graphHeight + 120})`);
 
   const legendData = [
     { value: 1, label: "Present (Data Available)" },
@@ -309,7 +398,7 @@ function drawHeat () {
     .enter()
     .append("g")
     .attr("class", "legend-item")
-    .attr("transform", (d, i) => `translate(${i * 250}, 0)`); // Increased spacing
+    .attr("transform", (d, i) => `translate(${i * 250}, 0)`);
 
   legendItems.append("rect")
     .attr("width", 18)
@@ -320,7 +409,7 @@ function drawHeat () {
     .attr("x", 24)
     .attr("y", 9)
     .text(d => d.label)
-    .style("font-size", "12px") 
+    .style("font-size", "16px")
     .attr("alignment-baseline", "middle");
 }
 
@@ -363,9 +452,6 @@ function bindEvents () {
 
 /* ─── Data Loading & Bootstrapping ────────────────────────────────────── */
 function loadData () {
-  /* Provide a CSV named "sequences.csv" in /data or root folder.
-     Expected columns: accession,pmid,<descriptor1>,<descriptor2>,...
-  */
   d3.csv("sequences.csv").then(raw => {
     if (!raw.length) throw new Error("CSV empty or not found");
 
@@ -383,9 +469,9 @@ function loadData () {
     }));
 
     state.sequences = [...state.allSequences];
-    
     state.papers = unique(raw.map(d => d.pmid)).map(pmid => ({ pmid }));
 
+    analyzeDescriptors(); // New: Analyze data types on load
     populateControls();
     createObserver();
     bindEvents();
