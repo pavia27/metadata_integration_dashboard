@@ -27,7 +27,7 @@ const state = {
   activePanel: null,
   filters: {},
   descriptors: [],
-  descriptorInfo: {} // New: To hold info about each column (type, domain)
+  descriptorInfo: {}
 };
 
 /* ─── Utility Helpers ──────────────────────────────────────────────────── */
@@ -35,8 +35,7 @@ const unique = arr => [...new Set(arr)];
 const hash = str => str ? Array.from(String(str)).reduce((h, c) => h + c.charCodeAt(0), 0) : 0;
 
 /**
- * New: Analyzes each data column to determine if it's numerical or categorical.
- * This information is used to build the appropriate chart scales and logic.
+ * Analyzes each data column to determine if it's numerical or categorical.
  */
 function analyzeDescriptors() {
   state.descriptors.forEach(key => {
@@ -99,7 +98,7 @@ function createObserver () {
 
 /* ─── Controls Population ─────────────────────────────────────────────── */
 function populateControls () {
-  // Global filter ‑ just list descriptor keys for now
+  // Global filter
   const gf = document.getElementById("globalFilter");
   state.descriptors.forEach(d => gf.add(new Option(d, d)));
 
@@ -180,12 +179,8 @@ function drawTree () {
       .text(d => d.data.name);
 }
 
-/* ─── Chart Panel (REWRITTEN) ─────────────────────────────────────────── */
+/* ─── Chart Panel ─────────────────────────────────────────── */
 
-/**
- * Main dispatcher for the chart panel. It checks the selected options
- * and data types, then calls the appropriate drawing function.
- */
 function drawChart() {
   const svg = d3.select("#chartSvg");
   svg.selectAll("*").remove();
@@ -194,68 +189,106 @@ function drawChart() {
   const xDesc = document.getElementById("chartX").value;
   const yDesc = document.getElementById("chartY").value;
   const colourDesc = document.getElementById("chartColour").value;
+  const shapeDesc = document.getElementById("chartShape").value;
 
   const xInfo = state.descriptorInfo[xDesc];
   const yInfo = state.descriptorInfo[yDesc];
+  const shapeInfo = state.descriptorInfo[shapeDesc];
 
-  if (!xInfo || !yInfo) return; // Exit if info not ready
+  if (!xInfo || !yInfo || !shapeInfo) return;
 
   if (mode === 'pyramid') {
-    drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo, colourDesc);
+    drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo);
   } else {
-    drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc);
+    drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc, shapeDesc, shapeInfo);
   }
 }
 
-/**
- * Draws a scatter plot, automatically handling numerical and categorical axes.
- */
-function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc) {
+function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc, shapeDesc, shapeInfo) {
   const { width, height } = svg.node().getBoundingClientRect();
-  const margin = { top: 20, right: 20, bottom: 40, left: 60 };
+  // Increase right margin to make space for legends
+  const margin = { top: 40, right: 200, bottom: 50, left: 60 };
   const graphWidth = width - margin.left - margin.right;
   const graphHeight = height - margin.top - margin.bottom;
   
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // Create X scale based on data type
   const xScale = xInfo.type === 'numerical'
     ? d3.scaleLinear().domain(xInfo.domain).nice().range([0, graphWidth])
     : d3.scalePoint().domain(xInfo.domain).range([0, graphWidth]).padding(0.5);
 
-  // Create Y scale based on data type
   const yScale = yInfo.type === 'numerical'
     ? d3.scaleLinear().domain(yInfo.domain).nice().range([graphHeight, 0])
     : d3.scalePoint().domain(yInfo.domain).range([graphHeight, 0]).padding(0.5);
+  
+  // Create scales for shape and a symbol generator
+  const shapeScale = d3.scaleOrdinal(d3.symbols).domain(shapeInfo.domain);
+  const symbolGenerator = d3.symbol().size(180); // Increased point size
 
-  // Draw axes
   g.append("g").attr("transform", `translate(0,${graphHeight})`).call(d3.axisBottom(xScale));
   g.append("g").call(d3.axisLeft(yScale));
 
-  // Filter out invalid data for plotting
   const plotData = state.sequences.filter(d => {
     const xVal = d.descriptors[xDesc];
     const yVal = d.descriptors[yDesc];
+    const shapeVal = d.descriptors[shapeDesc];
     return xVal !== null && xVal !== undefined && String(xVal).toUpperCase() !== 'NA' &&
-           yVal !== null && yVal !== undefined && String(yVal).toUpperCase() !== 'NA';
+           yVal !== null && yVal !== undefined && String(yVal).toUpperCase() !== 'NA' &&
+           shapeVal !== null && shapeVal !== undefined && String(shapeVal).toUpperCase() !== 'NA';
   });
 
-  // Draw points
-  g.selectAll("circle")
+  // Draw points using paths for shapes
+  g.selectAll(".point")
     .data(plotData)
-    .enter().append("circle")
-      .attr("cx", d => xScale(d.descriptors[xDesc]))
-      .attr("cy", d => yScale(d.descriptors[yDesc]))
-      .attr("r", 5)
+    .enter().append("path")
+      .attr("class", "point")
+      .attr("transform", d => `translate(${xScale(d.descriptors[xDesc])},${yScale(d.descriptors[yDesc])})`)
+      .attr("d", d => symbolGenerator.type(shapeScale(d.descriptors[shapeDesc]))())
       .attr("fill", d => d3.schemeTableau10[hash(d.descriptors[colourDesc]) % 10])
-      .attr("opacity", 0.7)
-      .append("title").text(d => `${d.accession}\n${xDesc}: ${d.descriptors[xDesc]}\n${yDesc}: ${d.descriptors[yDesc]}`);
+      .attr("opacity", 0.8)
+      .append("title").text(d => `${d.accession}\n${xDesc}: ${d.descriptors[xDesc]}\n${yDesc}: ${d.descriptors[yDesc]}\n${shapeDesc}: ${d.descriptors[shapeDesc]}`);
+
+  // --- Add Legends ---
+  
+  // Color Legend
+  const colorDomain = state.descriptorInfo[colourDesc].domain;
+  const colorLegend = g.append("g")
+    .attr("transform", `translate(${graphWidth + 30}, 0)`);
+  
+  colorLegend.append("text").text(colourDesc).attr("font-weight", "bold");
+  
+  const colorItems = colorLegend.selectAll(".color-item")
+    .data(colorDomain)
+    .enter().append("g")
+    .attr("transform", (d, i) => `translate(0, ${25 * (i + 1)})`);
+
+  colorItems.append("rect")
+    .attr("width", 15).attr("height", 15)
+    .attr("fill", d => d3.schemeTableau10[hash(d) % 10]);
+  
+  colorItems.append("text").text(d => d).attr("x", 20).attr("y", 12.5);
+
+  // Shape Legend
+  const shapeDomain = shapeInfo.domain;
+  const shapeLegendY = 25 * (colorDomain.length + 2); // Position below color legend
+  const shapeLegend = g.append("g")
+    .attr("transform", `translate(${graphWidth + 30}, ${shapeLegendY})`);
+    
+  shapeLegend.append("text").text(shapeDesc).attr("font-weight", "bold");
+
+  const shapeItems = shapeLegend.selectAll(".shape-item")
+    .data(shapeDomain)
+    .enter().append("g")
+    .attr("transform", (d, i) => `translate(10, ${25 * (i + 1)})`);
+
+  shapeItems.append("path")
+    .attr("d", d => d3.symbol(shapeScale(d), 120)())
+    .attr("fill", "#555");
+
+  shapeItems.append("text").text(d => d).attr("x", 20).attr("y", 5);
 }
 
-/**
- * Draws a pyramid chart for comparing two categorical variables.
- */
-function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo, colourDesc) {
+function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo) {
   if (xInfo.type !== 'categorical' || yInfo.type !== 'categorical') {
     svg.append("text").attr("x", "50%").attr("y", "50%").attr("text-anchor", "middle")
       .text("Pyramid plot requires categorical data for both X and Y axes.");
@@ -264,15 +297,15 @@ function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo, colourDesc) {
   
   const { width, height } = svg.node().getBoundingClientRect();
   const margin = { top: 40, right: 20, bottom: 40, left: 20 };
+  const graphWidth = width - margin.left - margin.right;
   const graphHeight = height - margin.top - margin.bottom;
 
-  // Group and count the data
   const counts = d3.rollup(state.sequences, v => v.length, d => d.descriptors[xDesc], d => d.descriptors[yDesc]);
   
   const xCategories = xInfo.domain;
   const yCategories = yInfo.domain;
   
-  const [xCat1, xCat2] = xCategories; // Assumes binary X category for pyramid structure
+  const [xCat1, xCat2] = xCategories;
 
   let maxCount = 0;
   yCategories.forEach(yCat => {
@@ -281,12 +314,11 @@ function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo, colourDesc) {
     maxCount = Math.max(maxCount, count1, count2);
   });
   
-  const xScale = d3.scaleLinear().domain([-maxCount, maxCount]).range([0, width - margin.left - margin.right]);
+  const xScale = d3.scaleLinear().domain([-maxCount, maxCount]).range([0, graphWidth]);
   const yScale = d3.scaleBand().domain(yCategories).range([0, graphHeight]).padding(0.2);
 
   const g = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Draw bars
   g.selectAll(".bar-left")
     .data(yCategories)
     .enter().append("rect")
@@ -307,12 +339,15 @@ function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo, colourDesc) {
       .attr("height", yScale.bandwidth())
       .attr("fill", "#69b3a2");
 
-  // Draw center axis and labels
-  g.append("g").call(d3.axisLeft(yScale).tickSize(0)).select(".domain").remove();
-  g.selectAll(".tick text").attr("x", d => width / 2 - margin.left);
+  const centerLineX = xScale(0);
+  g.append("g").call(d3.axisLeft(yScale).tickSize(0))
+    .attr("transform", `translate(${centerLineX}, 0)`)
+    .select(".domain").remove();
   
-  svg.append("text").attr("x", xScale(0) / 2).attr("y", 20).text(xCat1).attr("text-anchor", "middle");
-  svg.append("text").attr("x", width - xScale(0) / 2).attr("y", 20).text(xCat2).attr("text-anchor", "middle");
+  g.selectAll(".tick text").attr("x", 0).attr("text-anchor", "middle");
+  
+  g.append("text").attr("x", xScale(-maxCount / 2)).attr("y", -10).text(xCat1).attr("text-anchor", "middle");
+  g.append("text").attr("x", xScale(maxCount / 2)).attr("y", -10).text(xCat2).attr("text-anchor", "middle");
 }
 
 /* ─── Heat Map Panel ──────────────────────────────────────────────────── */
@@ -321,7 +356,7 @@ function drawHeat () {
   svg.selectAll("*").remove();
   const { width, height } = svg.node().getBoundingClientRect();
   
-  const margin = { top: 40, right: 80, bottom: 180, left: 150 }; 
+  const margin = { top: 40, right: 20, bottom: 180, left: 150 }; 
   const graphWidth = width - margin.left - margin.right;
   const graphHeight = height - margin.top - margin.bottom;
 
@@ -471,7 +506,7 @@ function loadData () {
     state.sequences = [...state.allSequences];
     state.papers = unique(raw.map(d => d.pmid)).map(pmid => ({ pmid }));
 
-    analyzeDescriptors(); // New: Analyze data types on load
+    analyzeDescriptors();
     populateControls();
     createObserver();
     bindEvents();

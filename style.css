@@ -53,14 +53,24 @@ main{
   margin-top:3rem; /* nav height */
 }
 
+/* Panel style updated for smaller, centered containers */
 .panel{
-  min-height:100vh;
-  padding:1rem;
-  position:relative;
-  scroll-snap-align:start;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
+  height: 85vh; /* Set panel height to 85% of the viewport height */
+  width: 90%; /* Set panel width to 90% of the page width */
+  margin: 4rem auto; /* Add vertical spacing and center horizontally */
+  
+  /* Optional: Add some styling for a cleaner look */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+  /* --- Existing rules --- */
+  padding: 1.5rem;
+  position: relative;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 h2{margin:0 0 .5rem;}
