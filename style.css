@@ -85,8 +85,3 @@ svg{
 .panel.active .settings{
   display:flex;
 }
-
-@media (prefers-color-scheme:dark){
-  body{background:var(--bg-dark);color:var(--fg-dark);}
-  #topnav{background:#2a2f38;color:var(--fg-dark);}
-}
