@@ -221,16 +221,17 @@ function drawChart () {
   }
 }
 
-/* ─── Heat Map Panel (UPDATED with Legend) ────────────────────────────── */
+/* ─── Heat Map Panel (UPDATED with size adjustments) ─────────────────── */
 function drawHeat () {
   const svg = d3.select("#heatSvg");
   svg.selectAll("*").remove();
   const { width, height } = svg.node().getBoundingClientRect();
-  const margin = { top: 20, right: 20, bottom: 160, left: 120 }; // Increased bottom margin for legend
+  
+  // Adjusted margins: increased to shrink the heatmap and provide space for larger text
+  const margin = { top: 40, right: 80, bottom: 180, left: 150 }; 
   const graphWidth = width - margin.left - margin.right;
   const graphHeight = height - margin.top - margin.bottom;
 
-  // Y-axis: all descriptor columns. X-axis: unique paper PMIDs.
   const y_elements = state.descriptors;
   const x_elements = unique(state.sequences.map(s => s.pmid));
 
@@ -238,40 +239,39 @@ function drawHeat () {
   
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // X Scale (PMIDs)
   const x = d3.scaleBand()
     .domain(x_elements)
     .range([0, graphWidth])
     .padding(0.05);
 
-  // Y Scale (Descriptors)
   const y = d3.scaleBand()
     .domain(y_elements)
     .range([0, graphHeight])
     .padding(0.05);
 
-  // Colour Scale from selector
   const colourScheme = document.getElementById("heatColour").value;
   const colour = d3.scaleSequential(d3[colourScheme]).domain([0, 1]);
 
-  // X Axis
+  // X Axis (with increased font size)
   g.append("g")
     .attr("transform", `translate(0,${graphHeight})`)
     .call(d3.axisBottom(x))
     .selectAll("text")
       .attr("transform", "translate(-10,0)rotate(-45)")
-      .style("text-anchor", "end");
+      .style("text-anchor", "end")
+      .style("font-size", "14px"); // Font size increased
 
-  // Y Axis
-  g.append("g").call(d3.axisLeft(y));
+  // Y Axis (with increased font size)
+  g.append("g")
+    .call(d3.axisLeft(y))
+    .selectAll("text")
+      .style("font-size", "14px"); // Font size increased
 
   // Draw heatmap rectangles
   x_elements.forEach(pmid => {
     y_elements.forEach(descriptor => {
-      // Get all sequences associated with the current pmid
       const seqs = state.sequences.filter(s => s.pmid === pmid);
       
-      // Presence/Absence: "present" if at least one sequence has a non-'NA' value.
       const isPresent = seqs.some(s => {
         const val = s.descriptors[descriptor];
         if (val === null || val === undefined) return false;
@@ -294,10 +294,10 @@ function drawHeat () {
     });
   });
 
-  // Add Legend at the bottom
+  // Legend (with increased font size)
   const legend = g.append("g")
     .attr("class", "legend")
-    .attr("transform", `translate(0, ${graphHeight + 100})`); // Position below x-axis
+    .attr("transform", `translate(0, ${graphHeight + 120})`); // Adjusted position for new margins
 
   const legendData = [
     { value: 1, label: "Present (Data Available)" },
@@ -309,7 +309,7 @@ function drawHeat () {
     .enter()
     .append("g")
     .attr("class", "legend-item")
-    .attr("transform", (d, i) => `translate(${i * 220}, 0)`); // Space out legend items
+    .attr("transform", (d, i) => `translate(${i * 250}, 0)`); // Increased spacing
 
   legendItems.append("rect")
     .attr("width", 18)
@@ -318,9 +318,9 @@ function drawHeat () {
 
   legendItems.append("text")
     .attr("x", 24)
-    .attr("y", 14)
+    .attr("y", 9)
     .text(d => d.label)
-    .style("font-size", "14px")
+    .style("font-size", "12px") 
     .attr("alignment-baseline", "middle");
 }
 
@@ -347,7 +347,7 @@ function bindEvents () {
     const tokens = e.target.value.split(",").map(t => t.trim().toUpperCase()).filter(Boolean);
     
     if (tokens.length === 0) {
-      state.sequences = [...state.allSequences]; // Reset to all sequences if search is empty
+      state.sequences = [...state.allSequences];
     } else {
       state.sequences = state.allSequences.filter(s => 
         tokens.includes(s.accession.toUpperCase()) || 
@@ -382,7 +382,6 @@ function loadData () {
         }))
     }));
 
-    // Initially, the filtered list is the same as the master list
     state.sequences = [...state.allSequences];
     
     state.papers = unique(raw.map(d => d.pmid)).map(pmid => ({ pmid }));
