@@ -68,6 +68,12 @@ main{
   justify-content: flex-start;
 }
 
+/* New rule to make only the tree panel larger */
+#treePanel {
+    height: 140vh;
+}
+
+
 h2{margin:0 0 .5rem;}
 
 svg{

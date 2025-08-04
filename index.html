@@ -12,8 +12,7 @@
 <nav id="topnav">
   <div class="nav-left">
     <input id="searchBox" type="text" placeholder="Search PMIDs or accessions… (comma separated)"/>
-    <select id="globalFilter" multiple></select>
-  </div>
+    </div>
   <button id="exportCSV">Export CSV</button>
 </nav>
 
@@ -21,7 +20,12 @@
   <section id="treePanel" class="panel active">
     <h2>Phylogenetic Tree</h2>
     <div class="settings">
-        <!-- Replaced old tree controls with a new toggle for branch length scaling -->
+        <label class="tree-control">Layout:
+            <select id="treeLayout">
+              <option value="radial">Radial</option>
+              <option value="rectangular">Rectangular</option>
+            </select>
+        </label>
         <label class="tree-control">
             <input type="checkbox" id="treeBranchLengthToggle"> Scale branch lengths
         </label>

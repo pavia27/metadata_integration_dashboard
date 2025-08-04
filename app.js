@@ -131,9 +131,8 @@ function createObserver () {
 
 /* ─── Controls Population ─────────────────────────────────────────────── */
 function populateControls () {
-  const gf = document.getElementById("globalFilter");
-  state.descriptors.forEach(d => gf.add(new Option(d, d)));
-
+  // Global filter population removed
+  
   // Tree controls
   const treeColour = document.getElementById("treeColour");
   if (treeColour) {
@@ -149,126 +148,105 @@ function populateControls () {
   });
 }
 
-/* ─── Tree Rendering (New version) ────────────────────────────────────── */
+/* ─── Tree Rendering (Updated) ────────────────────────────────────── */
 function drawTree() {
     const svg = d3.select("#treeSvg");
     svg.selectAll("*").remove();
     if (!state.tree) return;
-
-    const { width } = svg.node().getBoundingClientRect();
-    const outerRadius = width / 2;
-    const innerRadius = outerRadius - 170;
+    
+    const layoutType = document.getElementById("treeLayout").value;
+    const { width, height } = svg.node().getBoundingClientRect();
 
     const root = d3.hierarchy(state.tree, d => d.branchset)
         .sum(d => d.branchset ? 0 : 1)
         .sort((a, b) => (a.value - b.value) || d3.ascending(a.data.length, b.data.length));
-
-    const cluster = d3.cluster()
-        .size([360, innerRadius])
-        .separation(() => 1);
-
-    cluster(root);
     
-    // Set radius and color
+    // Set color based on descriptor
     const colorDesc = document.getElementById("treeColour").value;
     const colorInfo = state.descriptorInfo[colorDesc];
-    const colorScale = colorInfo ? d3.scaleOrdinal(d3.schemeTableau10).domain(colorInfo.domain) : () => "#ccc";
+    const colorScale = colorInfo && colorInfo.type === 'categorical' ? d3.scaleOrdinal(d3.schemeTableau10).domain(colorInfo.domain) : () => "#ccc";
 
     root.leaves().forEach(leaf => {
         const seq = state.sequences.find(s => s.accession === leaf.data.name);
-        if (seq && colorInfo) {
-            leaf.color = colorScale(seq.descriptors[colorDesc]);
-        } else {
-            leaf.color = "#ccc";
-        }
+        leaf.color = (seq && colorInfo) ? colorScale(seq.descriptors[colorDesc]) : "#ccc";
     });
 
-    // Propagate color up to parent nodes
     root.eachAfter(node => {
         if (!node.children) return;
         const firstChildColor = node.children[0].color;
-        if (node.children.every(c => c.color === firstChildColor)) {
-            node.color = firstChildColor;
-        } else {
-            node.color = "#ccc"; // Mixed clade color
-        }
+        node.color = node.children.every(c => c.color === firstChildColor) ? firstChildColor : "#ccc";
     });
 
-
-    // Find the maximum branch length for scaling
-    let maxLen = 0;
-    root.each(d => {
-        if (d.data.length > maxLen) maxLen = d.data.length;
-    });
-    
-    // Set radius based on branch length
-    function setRadius(d, y0, k) {
-        d.radius = y0 + d.data.length * k;
-        if (d.children) {
-            d.children.forEach(child => setRadius(child, d.radius, k));
-        }
+    if (layoutType === 'rectangular') {
+        drawRectangularTree(svg, root, width, height, colorDesc, colorInfo, colorScale);
+    } else { // 'radial' is the only other option now
+        drawRadialTree(svg, root, width, height, colorDesc, colorInfo, colorScale);
     }
-    setRadius(root, 0, innerRadius / maxLen);
+}
 
+function drawRectangularTree(svg, root, width, height, colorDesc, colorInfo, colorScale) {
+    const margin = { top: 20, right: 150, bottom: 20, left: 40 };
+    const graphWidth = width - margin.left - margin.right;
+    const graphHeight = height - margin.top - margin.bottom;
 
-    const g = svg.append("g")
-        .attr("transform", `translate(${outerRadius},${outerRadius})`)
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10);
-
-    // Add styles
-    svg.append("style").text(`
-        .link--active { stroke: #000 !important; stroke-width: 1.5px; }
-        .link-extension--active { stroke-opacity: .6; }
-        .label--active { font-weight: bold; }
-    `);
-
-    // Link path generators
-    const linkConstant = d3.linkRadial()
-        .angle(d => d.x * Math.PI / 180)
-        .radius(d => d.y);
+    const cluster = d3.cluster().size([graphHeight, graphWidth]);
+    cluster(root);
     
-    const linkVariable = d3.linkRadial()
-        .angle(d => d.x * Math.PI / 180)
-        .radius(d => d.radius);
+    root.descendants().forEach(d => (d.y = d.y + margin.left));
 
-    const linkExtensionConstant = d3.linkRadial()
-        .angle(d => d.x * Math.PI / 180)
-        .radius(innerRadius + 4);
+    const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const linkExtensionVariable = d3.linkRadial()
-        .angle(d => d.x * Math.PI / 180)
-        .radius(d => d.radius);
-
-    const linkExtension = g.append("g")
-        .attr("fill", "none")
-        .attr("stroke", "#000")
-        .attr("stroke-opacity", 0.25)
-        .selectAll("path")
-        .data(root.links().filter(d => !d.target.children))
-        .join("path")
-        .each(function(d) { d.target.linkExtensionNode = this; })
-        .attr("d", linkExtensionConstant);
-
-    const link = g.append("g")
-        .attr("fill", "none")
-        .attr("stroke", "#000")
-        .selectAll("path")
-        .data(root.links())
-        .join("path")
-        .each(function(d) { d.target.linkNode = this; })
-        .attr("d", linkConstant)
+    g.append("g")
+        .attr("fill", "none").attr("stroke", "#555").attr("stroke-width", 1.5)
+        .selectAll("path").data(root.links()).join("path")
+        .attr("d", d => `M${d.source.y},${d.source.x} L${d.target.y},${d.target.x}`)
         .attr("stroke", d => d.target.color);
 
-    g.selectAll("text")
-        .data(root.leaves())
-        .join("text")
-        .attr("dy", ".31em")
-        .attr("transform", d => `rotate(${d.x - 90}) translate(${innerRadius + 8},0)${d.x < 180 ? "" : " rotate(180)"}`)
-        .attr("text-anchor", d => d.x < 180 ? "start" : "end")
-        .text(d => d.data.name.replace(/_/g, " "))
-        .on("mouseover", mouseovered(true))
-        .on("mouseout", mouseovered(false));
+    const node = g.append("g").selectAll("g").data(root.descendants()).join("g").attr("transform", d => `translate(${d.y},${d.x})`);
+    node.append("circle").attr("r", 3).attr("fill", d => d.color).attr("stroke", "#fff").attr("stroke-width", 1);
+
+    g.append("g").selectAll("text").data(root.leaves()).join("text")
+        .attr("transform", d => `translate(${d.y},${d.x})`).attr("x", 5).attr("dy", "0.32em")
+        .text(d => d.data.name.replace(/_/g, " ")).attr("font-family", "sans-serif").attr("font-size", 10).attr("text-anchor", "start");
+    
+    // --- Add Legend ---
+    if (colorInfo && colorInfo.type === 'categorical' && colorInfo.domain.length) {
+        const legend = g.append("g").attr("class", "legend").attr("transform", `translate(20, 20)`);
+        legend.append("text").text(colorDesc).attr("font-weight", "bold").attr("dy", -5);
+        const legendItems = legend.selectAll(".legend-item").data(colorInfo.domain).join("g").attr("transform", (d, i) => `translate(0, ${i * 20})`);
+        legendItems.append("rect").attr("width", 15).attr("height", 15).attr("fill", colorScale);
+        legendItems.append("text").text(d => d).attr("x", 20).attr("y", 12.5).style("font-size", "12px");
+    }
+}
+
+function drawRadialTree(svg, root, width, height, colorDesc, colorInfo, colorScale) {
+    const outerRadius = Math.min(width, height) / 2 - 100;
+    const innerRadius = outerRadius - 120;
+
+    const cluster = d3.cluster().size([360, innerRadius > 0 ? innerRadius : outerRadius / 1.5]).separation(() => 1);
+    cluster(root);
+    
+    let maxLen = 0;
+    root.each(d => { if (d.data.length > maxLen) maxLen = d.data.length; });
+    
+    function setRadius(d, y0, k) {
+        d.radius = y0 + d.data.length * k;
+        if (d.children) d.children.forEach(child => setRadius(child, d.radius, k));
+    }
+    setRadius(root, 0, (innerRadius > 0 ? innerRadius : outerRadius / 1.5) / maxLen);
+
+    const g = svg.append("g").attr("transform", `translate(${width / 2},${height / 2})`).attr("font-family", "sans-serif").attr("font-size", 10);
+
+    svg.append("style").text(`.link--active { stroke: #000 !important; stroke-width: 2px; } .link-extension--active { stroke-opacity: .7; } .label--active { font-weight: bold; }`);
+
+    const linkConstant = d3.linkRadial().angle(d => d.x * Math.PI / 180).radius(d => d.y);
+    const linkVariable = d3.linkRadial().angle(d => d.x * Math.PI / 180).radius(d => d.radius);
+    const linkExtensionConstant = d3.linkRadial().angle(d => d.x * Math.PI / 180).radius(d => d.y + 5);
+
+    const linkExtension = g.append("g").attr("fill", "none").attr("stroke", "#000").attr("stroke-opacity", 0.25).selectAll("path").data(root.links().filter(d => !d.target.children)).join("path").each(function(d) { d.target.linkExtensionNode = this; }).attr("d", linkExtensionConstant);
+    const link = g.append("g").attr("fill", "none").attr("stroke", "#000").selectAll("path").data(root.links()).join("path").each(function(d) { d.target.linkNode = this; }).attr("d", linkConstant).attr("stroke", d => d.target.color);
+
+    g.selectAll("text").data(root.leaves()).join("text").attr("dy", ".31em").attr("transform", d => `rotate(${d.x - 90}) translate(${(innerRadius > 0 ? innerRadius : outerRadius / 1.5) + 8},0)${d.x > 180 ? " rotate(180)" : ""}`).attr("text-anchor", d => d.x > 180 ? "end" : "start").text(d => d.data.name.replace(/_/g, " ")).on("mouseover", mouseovered(true)).on("mouseout", mouseovered(false));
 
     function mouseovered(active) {
         return function(event, d) {
@@ -276,7 +254,7 @@ function drawTree() {
             d3.select(d.linkExtensionNode).classed("link-extension--active", active).raise();
             let current = d;
             while (current.parent) {
-                d3.select(current.linkNode).classed("link--active", active).raise();
+                if (current.linkNode) d3.select(current.linkNode).classed("link--active", active).raise();
                 current = current.parent;
             }
         };
@@ -284,16 +262,25 @@ function drawTree() {
     
     function update(checked) {
         const t = d3.transition().duration(750);
-        linkExtension.transition(t).attr("d", checked ? linkExtensionVariable : linkExtensionConstant);
+        const currentRadius = innerRadius > 0 ? innerRadius : outerRadius / 1.5;
+        const linkExtensionVariable = d3.linkRadial().angle(d => d.x * Math.PI / 180).radius(d => d.radius + 4);
+        const linkExtensionFinal = d3.linkRadial().angle(d => d.x * Math.PI / 180).radius(currentRadius + 4);
+        linkExtension.transition(t).attr("d", checked ? linkExtensionVariable : linkExtensionFinal);
         link.transition(t).attr("d", checked ? linkVariable : linkConstant);
     }
     
-    // Attach update function to the SVG for external access
     svg.node().update = update;
-    
-    // Initial state from checkbox
     const isChecked = document.getElementById("treeBranchLengthToggle").checked;
     update(isChecked);
+    
+    // --- Add Legend ---
+    if (colorInfo && colorInfo.type === 'categorical' && colorInfo.domain.length) {
+        const legend = g.append("g").attr("class", "legend").attr("transform", `translate(${-width / 2 + 20}, ${-height / 2 + 20})`);
+        legend.append("text").text(colorDesc).attr("font-weight", "bold").attr("dy", -5);
+        const legendItems = legend.selectAll(".legend-item").data(colorInfo.domain).join("g").attr("transform", (d, i) => `translate(0, ${i * 20})`);
+        legendItems.append("rect").attr("width", 15).attr("height", 15).attr("fill", colorScale);
+        legendItems.append("text").text(d => d).attr("x", 20).attr("y", 12.5).style("font-size", "12px");
+    }
 }
 
 
@@ -472,9 +459,17 @@ function bindEvents () {
   document.getElementById("exportCSV").addEventListener("click", exportCSV);
 
   // Tree controls
-  document.getElementById("treeBranchLengthToggle").addEventListener("change", (e) => {
+  const treeLayoutSelect = document.getElementById("treeLayout");
+  const branchLengthToggle = document.getElementById("treeBranchLengthToggle");
+
+  treeLayoutSelect.addEventListener("change", () => {
+      branchLengthToggle.disabled = treeLayoutSelect.value === 'rectangular';
+      drawTree();
+  });
+  
+  branchLengthToggle.addEventListener("change", (e) => {
       const svgNode = document.getElementById("treeSvg");
-      if (svgNode && svgNode.update) {
+      if (svgNode && svgNode.update && treeLayoutSelect.value !== 'rectangular') {
           svgNode.update(e.target.checked);
       }
   });
@@ -540,6 +535,9 @@ function loadData () {
     populateControls();
     createObserver();
     bindEvents();
+    
+    // Initial draw
+    document.getElementById("treeBranchLengthToggle").disabled = document.getElementById("treeLayout").value === 'rectangular';
     drawTree();
     drawChart();
     drawHeat();
