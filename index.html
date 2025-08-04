@@ -18,19 +18,16 @@
 </nav>
 
 <main>
-  <section id="treePanel" class="panel">
+  <section id="treePanel" class="panel active">
     <h2>Phylogenetic Tree</h2>
     <div class="settings">
-      <label>Colour (Tip): <select id="treeColour"></select></label>
-      <label>Size (Tip): <select id="treeSize"></select></label>
-      <label>Shape (Tip): <select id="treeShape"></select></label>
-      <label>Layout:
-        <select id="treeLayout">
-          <option value="rectangular">Rectangle</option>
-          <option value="radial">Radial</option>
-          <option value="unrooted">Unrooted</option>
-        </select>
-      </label>
+        <!-- Replaced old tree controls with a new toggle for branch length scaling -->
+        <label class="tree-control">
+            <input type="checkbox" id="treeBranchLengthToggle"> Scale branch lengths
+        </label>
+        <label class="tree-control">
+            Colour by: <select id="treeColour"></select>
+        </label>
     </div>
     <svg id="treeSvg"></svg>
   </section>
@@ -52,7 +49,6 @@
     <svg id="chartSvg"></svg>
   </section>
 
-  <main>
   <section id="heatmapPanel" class="panel">
     <h2>Metadata Available by PMID</h2>
     <div class="settings">

@@ -53,18 +53,13 @@ main{
   margin-top:3rem; /* nav height */
 }
 
-/* Panel style updated for smaller, centered containers */
 .panel{
-  height: 85vh; /* Set panel height to 85% of the viewport height */
-  width: 90%; /* Set panel width to 90% of the page width */
-  margin: 4rem auto; /* Add vertical spacing and center horizontally */
-  
-  /* Optional: Add some styling for a cleaner look */
+  height: 85vh;
+  width: 90%;
+  margin: 4rem auto;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-
-  /* --- Existing rules --- */
   padding: 1.5rem;
   position: relative;
   scroll-snap-align: center;
@@ -79,6 +74,7 @@ svg{
   flex:1;
   width:100%;
   height:100%;
+  overflow: visible; /* Allow labels to go outside the SVG boundary */
 }
 
 .settings{
@@ -94,4 +90,24 @@ svg{
 
 .panel.active .settings{
   display:flex;
+}
+
+/* Styles for the new phylogenetic tree */
+.link--active {
+  stroke: #000 !important;
+  stroke-width: 2.5px;
+}
+
+.link-extension--active {
+  stroke-opacity: .6;
+}
+
+.label--active {
+  font-weight: bold;
+}
+
+.tree-control {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
