@@ -17,6 +17,18 @@
 </nav>
 
 <main>
+  <div id="uploadSection">
+    <div class="file-input-wrapper">
+      <label for="csvFileInput">Sequence Data (.csv):</label>
+      <input type="file" id="csvFileInput" accept=".csv">
+    </div>
+    <div class="file-input-wrapper">
+      <label for="treeFileInput">Phylogenetic Tree (.tree):</label>
+      <input type="file" id="treeFileInput" accept=".tree,.txt">
+    </div>
+    <button id="loadButton">Load Dashboard</button>
+  </div>
+
   <section id="treePanel" class="panel active">
     <h2>Phylogenetic Tree</h2>
     <div class="settings">
@@ -71,6 +83,6 @@
   </section>
 </main>
 
-<script src="app.js"></script>
+<script src="functionality.js"></script>
 </body>
 </html>

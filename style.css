@@ -1,119 +1,116 @@
-/* style.css */
-:root{
-  --bg-light:#fafafa;
-  --bg-dark:#20262e;
-  --fg-light:#111;
-  --fg-dark:#eee;
+:root {
+  --nav-height: 50px;
+  --panel-spacing: 1rem;
+  --border-color: #ddd;
 }
 
-*{box-sizing:border-box;font-family:system-ui,Arial,sans-serif;}
-
-body{
-  margin:0;
-  background:var(--bg-light);
-  color:var(--fg-light);
-  scroll-behavior:smooth;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
 }
 
-#topnav{
-  position:fixed;
-  top:0;left:0;right:0;
-  height:3rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 .75rem;
-  background:#fff;
-  box-shadow:0 2px 4px rgba(0,0,0,.1);
-  z-index:1000;
+#topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background-color: #fff;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
-#topnav .nav-left{
-  display:flex;
-  gap:.5rem;
-  flex:1;
+#searchBox {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  min-width: 300px;
 }
 
-#searchBox{
-  flex:2;
-  padding:.25rem .5rem;
+main {
+  padding-top: var(--nav-height);
 }
 
-#globalFilter{
-  flex:1;
-  min-width:10rem;
-}
-
-#exportCSV{
-  padding:.4rem .8rem;
-  cursor:pointer;
-}
-
-main{
-  margin-top:3rem; /* nav height */
-}
-
-.panel{
-  height: 85vh;
-  width: 90%;
-  margin: 4rem auto;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  padding: 1.5rem;
-  position: relative;
-  scroll-snap-align: center;
+/* New styles for the upload section */
+#uploadSection {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin: 1rem auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
 }
 
-/* New rule to make only the tree panel larger */
-#treePanel {
-    height: 140vh;
+.file-input-wrapper {
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
-
-h2{margin:0 0 .5rem;}
-
-svg{
-  flex:1;
-  width:100%;
-  height:100%;
-  overflow: visible; /* Allow labels to go outside the SVG boundary */
-}
-
-.settings{
-  display:none;
-  gap:.5rem;
-  flex-wrap:wrap;
-  margin-bottom:.5rem;
-}
-
-.settings label{
-  font-size:.85rem;
-}
-
-.panel.active .settings{
-  display:flex;
-}
-
-/* Styles for the new phylogenetic tree */
-.link--active {
-  stroke: #000 !important;
-  stroke-width: 2.5px;
-}
-
-.link-extension--active {
-  stroke-opacity: .6;
-}
-
-.label--active {
+.file-input-wrapper label {
+  display: block;
+  margin-bottom: 0.5rem;
   font-weight: bold;
 }
 
-.tree-control {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+#uploadSection input[type="file"] {
+  width: 100%;
+}
+
+#loadButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+/* Hide the upload section after data is loaded */
+main.loaded #uploadSection {
+  display: none;
+}
+
+.panel {
+  width: 90%;
+  max-width: 1200px;
+  height: 90vh;
+  margin: var(--panel-spacing) auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+
+.panel.active {
+  opacity: 1;
+}
+
+.settings {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+}
+
+.panel svg {
+  width: 100%;
+  height: calc(100% - 60px); /* Adjust height for settings bar */
 }
