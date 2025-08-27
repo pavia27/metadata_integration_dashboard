@@ -1,224 +1,224 @@
 pmid,accession,clade_display,sex,age,immune_state,collection_date,location_country,location_city,CCI
-PMID12345678,ABC1234,21L (BA.2),,17,,2/2/22,Canada,,
-PMID12345678,ABC1235,21L (BA.2),,9,,2/3/22,Canada,,
-PMID12345678,ABC1236,21L (BA.2),,40,,2/4/22,Canada,,PMID:Ê30611668
-PMID12345678,ABC1237,21L (BA.2),,26,,2/5/22,Canada,,
-PMID12345678,ABC1238,21L (BA.2),,70,,2/6/22,Canada,,
-PMID12345678,ABC1239,21L (BA.2),,34,,2/7/22,Canada,,
-PMID12345678,ABC1240,21L (BA.2),,32,,2/8/22,Canada,,
-PMID12345678,ABC1241,22D (BA.2.75),,29,,2/9/22,Canada,,
-PMID12345678,ABC1242,22D (BA.2.75),,7,,2/10/22,Canada,,
-PMID12345678,ABC1243,22D (BA.2.75),,28,,2/11/22,Canada,,
-PMID12345678,ABC1244,22D (BA.2.75),,13,,2/12/22,Canada,,
-PMID12345678,ABC1245,22D (BA.2.75),,17,,2/13/22,Canada,,
-PMID12345678,ABC1246,21L (BA.2),,26,,2/14/22,Canada,,
-PMID12345678,ABC1247,21L (BA.2),,12,,2/15/22,Canada,,
-PMID12345678,ABC1248,21L (BA.2),,40,,2/16/22,Canada,,
-PMID12345678,ABC1249,21L (BA.2),,37,,2/17/22,Canada,,
-PMID12345678,ABC1250,21L (BA.2),,9,,2/18/22,Canada,,
-PMID91011121,XGn4XiBZ,21L (BA.2),M,0,,2/25/22,China,Hong Kong,4
-PMID91011121,upppmkp0,21L (BA.2),M,0,,2/26/22,China,Hong Kong,3
-PMID91011121,8bTaJB2O,21L (BA.2),F,83,,1/25/22,China,Hong Kong,2
-PMID91011121,xtEcwtfo,21L (BA.2),M,80,,2/10/22,China,Hong Kong,1
-PMID91011121,GnMzbbm9,21L (BA.2),M,25,,2/10/22,China,Hong Kong,4
-PMID91011121,aeXv9Dmh,21L (BA.2),M,1,,2/10/22,China,Hong Kong,3
-PMID91011121,99kNLsGq,21L (BA.2),F,25,,2/7/22,China,Hong Kong,2
-PMID91011121,CGrMhDv2,21L (BA.2),M,65,,2/7/22,China,Hong Kong,1
-PMID91011121,tChii9Ka,21L (BA.2),F,70,,2/7/22,China,Hong Kong,1
-PMID91011121,eDlRpPcM,21L (BA.2),F,73,,2/8/22,China,Hong Kong,2
-PMID91011121,93H2pKwz,21L (BA.2),F,9,,2/8/22,China,Hong Kong,3
-PMID91011121,uooQEne6,21L (BA.2),F,5,,2/6/22,China,Hong Kong,4
-PMID91011121,xI3IkZUC,21L (BA.2),F,0,,2/6/22,China,Hong Kong,1
-PMID91011121,CxCOfk2v,21L (BA.2),F,47,,1/25/22,China,Hong Kong,2
-PMID91011121,JSSDJNHA,21L (BA.2),F,38,,2/4/22,China,Hong Kong,3
-PMID91011121,xeg3PDEX,21L (BA.2),M,78,,2/3/22,China,Hong Kong,4
-PMID91011121,ZwXbT1fI,21L (BA.2),M,26,,1/25/22,China,Hong Kong,4
-PMID91011121,Z8dRjagP,21L (BA.2),M,65,,4/22/22,China,Hong Kong,3
-PMID91011121,RGgcgM5s,21L (BA.2),F,71,,4/11/22,China,Hong Kong,2
-PMID91011121,fUAVOj92,21L (BA.2),M,59,,3/17/22,China,Hong Kong,1
-PMID91011121,RYB7SWSn,21L (BA.2),F,85,,3/14/22,China,Hong Kong,4
-PMID91011121,Vi9wQ7TI,21L (BA.2),M,1,,3/11/22,China,Hong Kong,3
-PMID91011121,B0WpwXuE,21L (BA.2),F,83,,3/9/22,China,Hong Kong,2
-PMID91011121,EIwAJ6uH,21L (BA.2),F,74,,3/11/22,China,Hong Kong,1
-PMID91011121,7LNncpHa,21L (BA.2),M,35,,3/3/22,China,Hong Kong,1
-PMID91011121,bcbtQU2U,21L (BA.2),M,0,,2/25/22,China,Hong Kong,2
-PMID91011121,DoZ7kbeR,21L (BA.2),M,0,,2/24/22,China,Hong Kong,3
-PMID91011121,xj60untn,21L (BA.2),F,1,,2/21/22,China,Hong Kong,4
-PMID91011121,TTgylXv8,21L (BA.2),F,2,,2/21/22,China,Hong Kong,1
-PMID91011121,lpnEmOct,21L (BA.2),F,43,,2/18/22,China,Hong Kong,2
-PMID91011121,Nv3yfaS1,21L (BA.2),F,1,,2/18/22,China,Hong Kong,3
-PMID91011121,rCogx9Nl,21L (BA.2),M,67,,1/28/22,China,Hong Kong,4
-PMID91011121,LBDVrECX,21L (BA.2),M,68,,2/18/22,China,Hong Kong,4
-PMID91011121,jtvcetxu,21L (BA.2),M,0,,2/13/22,China,Hong Kong,3
-PMID91011121,wt5aHrN1,21L (BA.2),M,1,,2/14/22,China,Hong Kong,2
-PMID91011121,10ovlIZA,21L (BA.2),M,8,,2/13/22,China,Hong Kong,1
-PMID91011121,jdS7BZc8,21L (BA.2),F,31,,1/23/22,China,Hong Kong,4
-PMID91011121,uVKeWdnj,21L (BA.2),F,0,,2/25/22,China,Hong Kong,3
-PMID91011121,Qz0sLKzQ,21L (BA.2),F,0,,2/26/22,China,Hong Kong,2
-PMID91011121,O2urCvwC,21L (BA.2),F,76,,2/27/22,China,Hong Kong,1
-PMID91011121,JS04vqoQ,21L (BA.2),M,0,,2/22/22,China,Hong Kong,1
-PMID91011121,QifYZxkz,21L (BA.2),F,81,,2/18/22,China,Hong Kong,2
-PMID91011121,gTifoUiC,21L (BA.2),M,0,,2/17/22,China,Hong Kong,3
-PMID91011121,ngFXNLsV,21L (BA.2),F,3,,2/21/22,China,Hong Kong,4
-PMID91011121,keWkLT1s,21L (BA.2),M,77,,2/16/22,China,Hong Kong,1
-PMID91011121,72NRv2AI,21L (BA.2),M,0,,2/13/22,China,Hong Kong,2
-PMID91011121,0XHzzWr9,21L (BA.2),F,5,,2/14/22,China,Hong Kong,3
-PMID91011121,mmFnJ1Gx,21L (BA.2),F,40,,1/28/22,China,Hong Kong,4
-PMID91011121,yqsuALS5,21L (BA.2),F,0,,2/13/22,China,Hong Kong,4
-PMID91011121,Nxtj22lH,21L (BA.2),F,1,,2/14/22,China,Hong Kong,3
-PMID91011121,yFhPOLAH,21L (BA.2),M,2,,2/10/22,China,Hong Kong,2
-PMID91011121,VnDzXQXT,21L (BA.2),F,8,,2/9/22,China,Hong Kong,1
-PMID91011121,9awXGelI,21L (BA.2),F,33,,2/10/22,China,Hong Kong,4
-PMID91011121,18uoWbPa,21L (BA.2),F,73,,2/8/22,China,Hong Kong,3
-PMID91011121,fdJqsrDV,21L (BA.2),F,74,,2/8/22,China,Hong Kong,2
-PMID91011121,yDqkIgLx,21L (BA.2),M,7,,2/7/22,China,Hong Kong,1
-PMID91011121,MN0iKBH2,21L (BA.2),F,62,,2/7/22,China,Hong Kong,1
-PMID91011121,InQ0S4Ng,21L (BA.2),F,64,,2/7/22,China,Hong Kong,2
-PMID91011121,cWn6UxwY,21L (BA.2),F,6,,2/5/22,China,Hong Kong,3
-PMID91011121,pPJeGAoh,21L (BA.2),F,5,,2/6/22,China,Hong Kong,4
-PMID91011121,LdvoJTBF,21L (BA.2),F,14,,2/7/22,China,Hong Kong,1
-PMID91011121,FJ8WkEKz,21L (BA.2),F,51,,1/25/22,China,Hong Kong,2
-PMID91011121,4JfOjIPZ,21L (BA.2),M,67,,2/6/22,China,Hong Kong,3
-PMID91011121,f9wLiTkL,21L (BA.2),F,37,,2/5/22,China,Hong Kong,4
-PMID91011121,4fVAkZX7,21L (BA.2),M,8,,2/5/22,China,Hong Kong,4
-PMID91011121,wAFjvTfV,21L (BA.2),F,40,,2/4/22,China,Hong Kong,3
-PMID91011121,I7aSsVW7,21L (BA.2),F,32,,2/3/22,China,Hong Kong,2
-PMID91011121,MQwnMxrB,21L (BA.2),M,78,,3/11/22,China,Hong Kong,1
-PMID91011121,r1InFmZV,21L (BA.2),M,71,,3/10/22,China,Hong Kong,4
-PMID91011121,WnhNH2je,21L (BA.2),M,70,,3/9/22,China,Hong Kong,3
-PMID91011121,99BaNsd3,21L (BA.2),M,0,,3/2/22,China,Hong Kong,2
-PMID91011121,hBB1AbDT,21L (BA.2),M,75,,3/4/22,China,Hong Kong,1
-PMID31415161,lmWDaycj,21K (BA.1),M,62,Immunocompromised,2/14/22,USA,New York,1
-PMID31415161,g3l1SVwM,21K (BA.1),M,62,Immunocompromised,3/10/22,USA,New York,2
-PMID31415161,sgSOSAcH,21K (BA.1),M,62,Immunocompromised,3/2/22,USA,New York,3
-PMID31415161,8MPPA4IR,21K (BA.1),F,68,Immunocompromised,3/14/22,USA,New York,4
-PMID31415161,kxYxyehm,21K (BA.1),M,62,Immunocompromised,2/6/22,USA,New York,4
-PMID31415161,0lOAcy8p,21K (BA.1),F,62,Immunocompromised,5/2/22,USA,New York,3
-PMID31415161,sLsLu3JM,21K (BA.1),M,62,Immunocompromised,3/19/22,USA,New York,2
-PMID31415161,KCEspOgJ,21K (BA.1),M,62,Immunocompromised,1/20/22,USA,New York,1
-PMID31415161,D4F2KZpL,21K (BA.1),M,37,Immunocompromised,4/21/22,USA,New York,1
-PMID31415161,NlO0p1eJ,21K (BA.1),M,37,Immunocompromised,4/8/22,USA,New York,2
-PMID31415161,7RQM2HjU,21K (BA.1),F,62,Immunocompromised,4/18/22,USA,New York,3
-PMID31415161,aEOzTrl8,21K (BA.1),M,38,Immunocompromised,4/18/22,USA,New York,4
-PMID31415161,CimquM7w,21K (BA.1),M,38,Immunocompromised,5/7/22,USA,New York,4
-PMID71819202,9eH63hMV,21K (BA.1),M,55,Immunocompromised,2/15/22,Italy,Padua,
-PMID71819202,zyrihvQm,21K (BA.1),M,49,Immunocompromised,12/26/21,Italy,Padua,
-PMID71819202,nKOKVTLM,21K (BA.1),M,49,Immunocompromised,12/23/21,Italy,Padua,
-PMID71819202,C4D8m8Eg,21L (BA.2),M,58,Immunocompromised,3/29/22,Italy,Padua,
-PMID71819202,L3hScBya,21K (BA.1),M,49,Immunocompromised,12/30/21,Italy,Padua,
-PMID71819202,bBtU7rwr,21K (BA.1),M,49,Immunocompromised,1/5/22,Italy,Padua,
-PMID71819202,bRwi1kUp,21K (BA.1),M,49,Immunocompromised,1/14/22,Italy,Padua,
-PMID71819202,kIwUuAXW,21K (BA.1),M,55,Immunocompromised,2/18/22,Italy,Padua,
-PMID71819202,oyJOhD9b,21K (BA.1),M,55,Immunocompromised,2/22/22,Italy,Padua,
-PMID71819202,fROSXyJB,21L (BA.2),M,58,Immunocompromised,1/4/22,Italy,Padua,
-PMID71819202,FEd0mxz0,21K (BA.1),F,69,Immunocompromised,2/14/22,Italy,Padua,
-PMID71819202,VdPfExkK,21K (BA.1),F,69,Immunocompromised,2/18/22,Italy,Padua,
-PMID71819202,kJF0nByS,21K (BA.1),F,69,Immunocompromised,2/21/22,Italy,Padua,
-PMID71819202,2rulAjwI,21K (BA.1),F,48,Immuconpetent,2/22/22,Italy,Padua,
-PMID71819202,rD3yPtRb,21K (BA.1),M,93,Immuconpetent,3/4/22,Italy,Padua,
-PMID71819202,9JDvtJDl,21K (BA.1),M,93,Immuconpetent,3/18/22,Italy,Padua,
-PMID71819202,UKN3HOzt,21K (BA.1),M,93,Immuconpetent,3/14/22,Italy,Padua,
-PMID71819202,e21jHB7O,21K (BA.1),F,48,Immuconpetent,2/15/22,Italy,Padua,
-PMID71819202,ExF3DzxD,21K (BA.1),M,70,Immuconpetent,2/15/22,Italy,Padua,
-PMID71819202,lXsHO3xn,21K (BA.1),M,76,Immuconpetent,2/15/22,Italy,Padua,
-PMID71819202,bqc9QiQr,21K (BA.1),F,82,Immuconpetent,2/16/22,Italy,Padua,
-PMID71819202,d18M3jvU,21K (BA.1),F,82,Immuconpetent,2/18/22,Italy,Padua,
-PMID71819202,EZ0CNgEm,21K (BA.1),F,48,Immuconpetent,2/18/22,Italy,Padua,
-PMID71819202,qlppBLKZ,21L (BA.2),M,83,Immuconpetent,3/15/22,Italy,Padua,
-PMID71819202,ZQcuIYNH,21L (BA.2),M,74,Immuconpetent,3/15/22,Italy,Padua,
-PMID71819202,arcsUftL,21K (BA.1),F,59,Immuconpetent,3/16/22,Italy,Padua,
-PMID71819202,5wj8cYUd,21L (BA.2),F,66,Immuconpetent,3/16/22,Italy,Padua,
-PMID71819202,ISJcoIHX,21K (BA.1),F,59,Immuconpetent,3/18/22,Italy,Padua,
-PMID71819202,7wMqYvWS,21L (BA.2),M,89,Immuconpetent,3/17/22,Italy,Padua,
-PMID71819202,KzCgMLPI,21K (BA.1),F,73,Immuconpetent,3/21/22,Italy,Padua,
-PMID71819202,9vgQQbfZ,21L (BA.2),M,74,Immuconpetent,3/22/22,Italy,Padua,
-PMID71819202,NdP020n6,21L (BA.2),M,83,Immuconpetent,3/22/22,Italy,Padua,
-PMID71819202,Tzvdl12h,21K (BA.1),F,73,Immuconpetent,3/28/22,Italy,Padua,
-PMID71819202,cGvqrN5z,21L (BA.2),M,89,Immuconpetent,3/23/22,Italy,Padua,
-PMID71819202,NJImYGa7,21K (BA.1),F,59,Immuconpetent,3/23/22,Italy,Padua,
-PMID71819202,0xxixqFV,21L (BA.2),F,85,Immuconpetent,3/29/22,Italy,Padua,
-PMID71819202,QimREx5G,21L (BA.2),F,85,Immuconpetent,1/4/22,Italy,Padua,
-PMID12223242,BfBy3OwC,21K (BA.1),F,56,Immuconpetent,2/1/22,Japan,,
-PMID12223242,KV6MDjH8,21K (BA.1),M,46,Immuconpetent,2/1/22,Japan,,
-PMID12223242,DRR438336,21L (BA.2),F,60,Immuconpetent,2/1/22,Japan,,
-PMID12223242,fJhPz7ry,21K (BA.1),F,40,Immuconpetent,2/1/22,Japan,,
-PMID12223242,OyQu9UzD,21K (BA.1),M,67,Immuconpetent,2/1/22,Japan,,
-PMID12223242,DRR438339,21L (BA.2),F,46,Immunocompromised,2/1/22,Japan,,
-PMID12223242,DRR438340,21K (BA.1),F,73,Immunocompromised,2/1/22,Japan,,
-PMID12223242,DRR438341,21K (BA.1),F,51,Immunocompromised,2/1/22,Japan,,
-PMID12223242,DRR438342,21L (BA.2),M,51,Immuconpetent,2/1/22,Japan,,
-PMID12223242,DRR438343,21K (BA.1),F,43,Immuconpetent,2/1/22,Japan,,
-PMID12223242,DRR438344,21K (BA.1),F,68,Immuconpetent,2/1/22,Japan,,
-PMID12223242,DRR438345,21K (BA.1),F,46,Immuconpetent,2/1/22,Japan,,
-PMID12223242,DRR438346,21K (BA.1),F,60,Immuconpetent,2/1/22,Japan,,
-PMID12223242,DRR438347,21K (BA.1),M,66,Immuconpetent,2/1/22,Japan,,
-PMID12223242,DRR438348,21L (BA.2),F,34,Immunocompromised,2/1/22,Japan,,
-PMID12223242,DRR438349,21K (BA.1),F,98,Immunocompromised,2/1/22,Japan,,
-PMID12223242,DRR438350,21L (BA.2),F,34,Immunocompromised,2/1/22,Japan,,
-PMID12223242,DRR438351,21K (BA.1),M,12,Immuconpetent,2/1/22,Japan,,
-PMID23456789,gx4htMJz,22D (BA.2.75),M,22,,8/30/22,India,Durg ,
-PMID23456789,rsQhe1s2,22D (BA.2.75),M,17,,8/27/22,India,Raipur ,
-PMID23456789,IH8Moq1a,22D (BA.2.75),M,9,,8/30/22,India,Raipur ,
-PMID23456789,GSvtHsjC,22D (BA.2.75),M,40,,8/27/22,India,Raipur ,
-PMID23456789,XikxS0Ue,22D (BA.2.75),M,26,,5/9/22,India,Raigarh ,
-PMID10111213,wfJo25It,21L (BA.2),F,3,,3/10/22,China,Nanjing ,
-PMID10111213,qKNdoJFs,21L (BA.2),M,69,,3/10/22,China,Nanjing ,
-PMID10111213,iOLBK2UT,21L (BA.2),F,25,,3/10/22,China,Nanjing ,
-PMID10111213,amak2X3P,21L (BA.2),M,62,,3/12/22,China,Nanjing ,
-PMID10111213,68T4rc3q,21L (BA.2),F,31,,3/10/22,China,Nanjing ,
-PMID10111213,9fY6Cz8J,21L (BA.2),M,33,,3/13/22,China,Nanjing ,
-PMID10111213,TrNM0MkT,21L (BA.2),F,36,,3/14/22,China,Nanjing ,
-PMID10111213,PbFYfwnM,21L (BA.2),F,70,,3/14/22,China,Nanjing ,
-PMID10111213,XO2FWm8U,21L (BA.2),F,34,,3/14/22,China,Nanjing ,
-PMID10111213,ijTq9RBf,21L (BA.2),F,32,,3/14/22,China,Nanjing ,
-PMID10111213,OA6E1YyH,21L (BA.2),F,29,,3/14/22,China,Nanjing ,
-PMID10111213,yg0v1g6V,21L (BA.2),F,7,,3/14/22,China,Nanjing ,
-PMID10111213,sWpqa6sI,21L (BA.2),M,28,,3/14/22,China,Nanjing ,
-PMID10111213,la8ZpfhG,21L (BA.2),M,13,,3/14/22,China,Nanjing ,
-PMID10111213,VZuLsnTB,21L (BA.2),F,17,,3/14/22,China,Nanjing ,
-PMID10111213,SqAhN9a3,21L (BA.2),F,26,,3/15/22,China,Nanjing ,
-PMID10111213,nloKF3jQ,21L (BA.2),M,12,,3/15/22,China,Nanjing ,
-PMID10111213,ozkTCgDH,21L (BA.2),F,40,,3/15/22,China,Nanjing ,
-PMID10111213,S2CuRhsj,21L (BA.2),M,37,,3/15/22,China,Nanjing ,
-PMID10111213,oCBpmD5x,21L (BA.2),M,17,,3/15/22,China,Nanjing ,
-PMID10111213,UCn9X2mk,21L (BA.2),M,31,,3/15/22,China,Nanjing ,
-PMID10111213,J2a9YMWM,21L (BA.2),M,37,,3/15/22,China,Nanjing ,
-PMID10111213,dtl7KW1e,21L (BA.2),F,71,,3/15/22,China,Nanjing ,
-PMID10111213,Nc4rawl2,21L (BA.2),F,60,,3/15/22,China,Nanjing ,
-PMID10111213,Nd9iXuIB,21L (BA.2),M,37,,3/15/22,China,Nanjing ,
-PMID10111213,R8lUDFBE,21L (BA.2),F,31,,3/15/22,China,Nanjing ,
-PMID10111213,qNB3HOqx,21L (BA.2),F,33,,3/15/22,China,Nanjing ,
-PMID10111213,hAXN0Rec,21L (BA.2),M,91,,3/15/22,China,Nanjing ,
-PMID10111213,fgRDbKwA,21L (BA.2),F,55,,3/15/22,China,Nanjing ,
-PMID10111213,O43Jj0pj,21L (BA.2),F,53,,3/16/22,China,Nanjing ,
-PMID10111213,cun9xBwL,21L (BA.2),F,32,,3/16/22,China,Nanjing ,
-PMID10111213,qLUKbpio,21L (BA.2),M,60,,3/16/22,China,Nanjing ,
-PMID10111213,lvAcXlaQ,21L (BA.2),M,2,,3/16/22,China,Nanjing ,
-PMID10111213,gIaHaDBN,21L (BA.2),F,29,,3/16/22,China,Nanjing ,
-PMID10111213,bJVYzYKi,21L (BA.2),M,49,,3/16/22,China,Nanjing ,
-PMID10111213,uJMeN7uv,21L (BA.2),F,46,,3/16/22,China,Nanjing ,
-PMID10111213,WSRUAwd4,21L (BA.2),M,10,,3/16/22,China,Nanjing ,
-PMID10111213,bnkCGFmy,21L (BA.2),F,38,,3/16/22,China,Nanjing ,
-PMID10111213,RucXrOf2,21L (BA.2),F,1,,3/16/22,China,Nanjing ,
-PMID10111213,vYqCt6IT,21L (BA.2),F,85,,3/17/22,China,Nanjing ,
-PMID10111213,T68eeUbl,21L (BA.2),F,37,,3/17/22,China,Nanjing ,
-PMID10111213,kcptn4X0,21L (BA.2),M,35,,3/17/22,China,Nanjing ,
-PMID10111213,l7oZC2a1,21L (BA.2),M,42,,3/17/22,China,Nanjing ,
-PMID10111213,3QtjgSNT,21L (BA.2),M,74,,3/18/22,China,Nanjing ,
-PMID10111213,749MdPpq,21L (BA.2),M,52,,3/18/22,China,Nanjing ,
-PMID10111213,dyIx2Rhy,21L (BA.2),M,32,,3/18/22,China,Nanjing ,
-PMID10111213,OwV1XvQa,21L (BA.2),M,21,,3/19/22,China,Nanjing ,
-PMID10111213,SOWn0MyX,21L (BA.2),F,63,,3/19/22,China,Nanjing ,
-PMID10111213,PjoeCz46,21L (BA.2),F,36,,3/19/22,China,Nanjing ,
-PMID10111213,8NxfhYHI,21L (BA.2),M,35,,3/18/22,China,Nanjing ,
-PMID10111213,5MM2BNDI,21L (BA.2),M,56,,3/19/22,China,Nanjing ,
-PMID10111213,MG7CJU0Y,21L (BA.2),F,52,,3/19/22,China,Nanjing ,
-PMID10111213,XxFLcOIT,21L (BA.2),F,51,,3/19/22,China,Nanjing ,
-PMID10111213,Yn6tdpyB,21L (BA.2),F,32,,3/19/22,China,Nanjing ,
-PMID10111213,AXNdQpMU,21L (BA.2),F,56,,3/19/22,China,Nanjing ,
-PMID10111213,oqILlSRv,21L (BA.2),M,26,,3/20/22,China,Nanjing ,
-PMID10111213,Jz4fchYq,21L (BA.2),M,29,,3/20/22,China,Nanjing ,
-PMID10111213,2O6r03lX,21L (BA.2),M,17,,3/20/22,China,Nanjing ,
-PMID10111213,tyCBLKfd,21L (BA.2),M,33,,3/23/22,China,Nanjing ,
-PMID10111213,usFE9Er7,21L (BA.2),F,49,,3/14/22,China,Nanjing ,
-PMID10111213,HSnhT2IS,21L (BA.2),M,33,,3/15/22,China,Nanjing ,
+PMID10111213,wfJo25It,clade_2,F,3,,3/10/22,China,Nanjing ,
+PMID10111213,qKNdoJFs,clade_2,M,69,,3/10/22,China,Nanjing ,
+PMID10111213,iOLBK2UT,clade_2,F,25,,3/10/22,China,Nanjing ,
+PMID10111213,amak2X3P,clade_2,M,62,,3/12/22,China,Nanjing ,
+PMID10111213,68T4rc3q,clade_2,F,31,,3/10/22,China,Nanjing ,
+PMID10111213,9fY6Cz8J,clade_2,M,33,,3/13/22,China,Nanjing ,
+PMID10111213,TrNM0MkT,clade_2,F,36,,3/14/22,China,Nanjing ,
+PMID10111213,PbFYfwnM,clade_2,F,70,,3/14/22,China,Nanjing ,
+PMID10111213,XO2FWm8U,clade_2,F,34,,3/14/22,China,Nanjing ,
+PMID10111213,ijTq9RBf,clade_2,F,32,,3/14/22,China,Nanjing ,
+PMID10111213,OA6E1YyH,clade_2,F,29,,3/14/22,China,Nanjing ,
+PMID10111213,yg0v1g6V,clade_2,F,7,,3/14/22,China,Nanjing ,
+PMID10111213,sWpqa6sI,clade_2,M,28,,3/14/22,China,Nanjing ,
+PMID10111213,la8ZpfhG,clade_2,M,13,,3/14/22,China,Nanjing ,
+PMID10111213,VZuLsnTB,clade_2,F,17,,3/14/22,China,Nanjing ,
+PMID10111213,SqAhN9a3,clade_2,F,26,,3/15/22,China,Nanjing ,
+PMID10111213,nloKF3jQ,clade_2,M,12,,3/15/22,China,Nanjing ,
+PMID10111213,ozkTCgDH,clade_2,F,40,,3/15/22,China,Nanjing ,
+PMID10111213,S2CuRhsj,clade_2,M,37,,3/15/22,China,Nanjing ,
+PMID10111213,oCBpmD5x,clade_2,M,17,,3/15/22,China,Nanjing ,
+PMID10111213,UCn9X2mk,clade_2,M,31,,3/15/22,China,Nanjing ,
+PMID10111213,J2a9YMWM,clade_2,M,37,,3/15/22,China,Nanjing ,
+PMID10111213,dtl7KW1e,clade_2,F,71,,3/15/22,China,Nanjing ,
+PMID10111213,Nc4rawl2,clade_2,F,60,,3/15/22,China,Nanjing ,
+PMID10111213,Nd9iXuIB,clade_2,M,37,,3/15/22,China,Nanjing ,
+PMID10111213,R8lUDFBE,clade_2,F,31,,3/15/22,China,Nanjing ,
+PMID10111213,qNB3HOqx,clade_2,F,33,,3/15/22,China,Nanjing ,
+PMID10111213,hAXN0Rec,clade_2,M,91,,3/15/22,China,Nanjing ,
+PMID10111213,fgRDbKwA,clade_2,F,55,,3/15/22,China,Nanjing ,
+PMID10111213,O43Jj0pj,clade_2,F,53,,3/16/22,China,Nanjing ,
+PMID10111213,cun9xBwL,clade_2,F,32,,3/16/22,China,Nanjing ,
+PMID10111213,qLUKbpio,clade_2,M,60,,3/16/22,China,Nanjing ,
+PMID10111213,lvAcXlaQ,clade_2,M,2,,3/16/22,China,Nanjing ,
+PMID10111213,gIaHaDBN,clade_2,F,29,,3/16/22,China,Nanjing ,
+PMID10111213,bJVYzYKi,clade_2,M,49,,3/16/22,China,Nanjing ,
+PMID10111213,uJMeN7uv,clade_2,F,46,,3/16/22,China,Nanjing ,
+PMID10111213,WSRUAwd4,clade_2,M,10,,3/16/22,China,Nanjing ,
+PMID10111213,bnkCGFmy,clade_2,F,38,,3/16/22,China,Nanjing ,
+PMID10111213,RucXrOf2,clade_2,F,1,,3/16/22,China,Nanjing ,
+PMID10111213,vYqCt6IT,clade_2,F,85,,3/17/22,China,Nanjing ,
+PMID10111213,T68eeUbl,clade_2,F,37,,3/17/22,China,Nanjing ,
+PMID10111213,kcptn4X0,clade_2,M,35,,3/17/22,China,Nanjing ,
+PMID10111213,l7oZC2a1,clade_2,M,42,,3/17/22,China,Nanjing ,
+PMID10111213,3QtjgSNT,clade_2,M,74,,3/18/22,China,Nanjing ,
+PMID10111213,749MdPpq,clade_2,M,52,,3/18/22,China,Nanjing ,
+PMID10111213,dyIx2Rhy,clade_2,M,32,,3/18/22,China,Nanjing ,
+PMID10111213,OwV1XvQa,clade_2,M,21,,3/19/22,China,Nanjing ,
+PMID10111213,SOWn0MyX,clade_2,F,63,,3/19/22,China,Nanjing ,
+PMID10111213,PjoeCz46,clade_2,F,36,,3/19/22,China,Nanjing ,
+PMID10111213,8NxfhYHI,clade_2,M,35,,3/18/22,China,Nanjing ,
+PMID10111213,5MM2BNDI,clade_2,M,56,,3/19/22,China,Nanjing ,
+PMID10111213,MG7CJU0Y,clade_2,F,52,,3/19/22,China,Nanjing ,
+PMID10111213,XxFLcOIT,clade_2,F,51,,3/19/22,China,Nanjing ,
+PMID10111213,Yn6tdpyB,clade_2,F,32,,3/19/22,China,Nanjing ,
+PMID10111213,AXNdQpMU,clade_2,F,56,,3/19/22,China,Nanjing ,
+PMID10111213,oqILlSRv,clade_2,M,26,,3/20/22,China,Nanjing ,
+PMID10111213,Jz4fchYq,clade_2,M,29,,3/20/22,China,Nanjing ,
+PMID10111213,2O6r03lX,clade_2,M,17,,3/20/22,China,Nanjing ,
+PMID10111213,tyCBLKfd,clade_2,M,33,,3/23/22,China,Nanjing ,
+PMID10111213,usFE9Er7,clade_2,F,49,,3/14/22,China,Nanjing ,
+PMID10111213,HSnhT2IS,clade_2,M,33,,3/15/22,China,Nanjing ,
+PMID12223242,BfBy3OwC,clade_1,F,56,Immuconpetent,2/1/22,Japan,,
+PMID12223242,KV6MDjH8,clade_1,M,46,Immuconpetent,2/1/22,Japan,,
+PMID12223242,fJhPz7ry,clade_1,F,40,Immuconpetent,2/1/22,Japan,,
+PMID12223242,OyQu9UzD,clade_1,M,67,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438340,clade_1,F,73,Immunocompromised,2/1/22,Japan,,
+PMID12223242,DRR438341,clade_1,F,51,Immunocompromised,2/1/22,Japan,,
+PMID12223242,DRR438343,clade_1,F,43,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438344,clade_1,F,68,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438345,clade_1,F,46,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438346,clade_1,F,60,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438347,clade_1,M,66,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438349,clade_1,F,98,Immunocompromised,2/1/22,Japan,,
+PMID12223242,DRR438351,clade_1,M,12,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438336,clade_2,F,60,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438339,clade_2,F,46,Immunocompromised,2/1/22,Japan,,
+PMID12223242,DRR438342,clade_2,M,51,Immuconpetent,2/1/22,Japan,,
+PMID12223242,DRR438348,clade_2,F,34,Immunocompromised,2/1/22,Japan,,
+PMID12223242,DRR438350,clade_2,F,34,Immunocompromised,2/1/22,Japan,,
+PMID12345678,ABC1234,clade_2,,17,,2/2/22,Canada,,
+PMID12345678,ABC1235,clade_2,,9,,2/3/22,Canada,,
+PMID12345678,ABC1236,clade_2,,40,,2/4/22,Canada,,
+PMID12345678,ABC1237,clade_2,,26,,2/5/22,Canada,,
+PMID12345678,ABC1238,clade_2,,70,,2/6/22,Canada,,
+PMID12345678,ABC1239,clade_2,,34,,2/7/22,Canada,,
+PMID12345678,ABC1240,clade_2,,32,,2/8/22,Canada,,
+PMID12345678,ABC1246,clade_2,,26,,2/14/22,Canada,,
+PMID12345678,ABC1247,clade_2,,12,,2/15/22,Canada,,
+PMID12345678,ABC1248,clade_2,,40,,2/16/22,Canada,,
+PMID12345678,ABC1249,clade_2,,37,,2/17/22,Canada,,
+PMID12345678,ABC1250,clade_2,,9,,2/18/22,Canada,,
+PMID12345678,ABC1241,clade_3,,29,,2/9/22,Canada,,
+PMID12345678,ABC1242,clade_3,,7,,2/10/22,Canada,,
+PMID12345678,ABC1243,clade_3,,28,,2/11/22,Canada,,
+PMID12345678,ABC1244,clade_3,,13,,2/12/22,Canada,,
+PMID12345678,ABC1245,clade_3,,17,,2/13/22,Canada,,
+PMID23456789,gx4htMJz,clade_3,M,22,,8/30/22,India,Durg ,
+PMID23456789,rsQhe1s2,clade_3,M,17,,8/27/22,India,Raipur ,
+PMID23456789,IH8Moq1a,clade_3,M,9,,8/30/22,India,Raipur ,
+PMID23456789,GSvtHsjC,clade_3,M,40,,8/27/22,India,Raipur ,
+PMID23456789,XikxS0Ue,clade_3,M,26,,5/9/22,India,Raigarh ,
+PMID31415161,lmWDaycj,clade_1,M,62,Immunocompromised,2/14/22,USA,New York,1
+PMID31415161,g3l1SVwM,clade_1,M,62,Immunocompromised,3/10/22,USA,New York,2
+PMID31415161,sgSOSAcH,clade_1,M,62,Immunocompromised,3/2/22,USA,New York,3
+PMID31415161,8MPPA4IR,clade_1,F,68,Immunocompromised,3/14/22,USA,New York,4
+PMID31415161,kxYxyehm,clade_1,M,62,Immunocompromised,2/6/22,USA,New York,4
+PMID31415161,0lOAcy8p,clade_1,F,62,Immunocompromised,5/2/22,USA,New York,3
+PMID31415161,sLsLu3JM,clade_1,M,62,Immunocompromised,3/19/22,USA,New York,2
+PMID31415161,KCEspOgJ,clade_1,M,62,Immunocompromised,1/20/22,USA,New York,1
+PMID31415161,D4F2KZpL,clade_1,M,37,Immunocompromised,4/21/22,USA,New York,1
+PMID31415161,NlO0p1eJ,clade_1,M,37,Immunocompromised,4/8/22,USA,New York,2
+PMID31415161,7RQM2HjU,clade_1,F,62,Immunocompromised,4/18/22,USA,New York,3
+PMID31415161,aEOzTrl8,clade_1,M,38,Immunocompromised,4/18/22,USA,New York,4
+PMID31415161,CimquM7w,clade_1,M,38,Immunocompromised,5/7/22,USA,New York,4
+PMID71819202,9eH63hMV,clade_1,M,55,Immunocompromised,2/15/22,Italy,Padua,
+PMID71819202,zyrihvQm,clade_1,M,49,Immunocompromised,12/26/21,Italy,Padua,
+PMID71819202,nKOKVTLM,clade_1,M,49,Immunocompromised,12/23/21,Italy,Padua,
+PMID71819202,L3hScBya,clade_1,M,49,Immunocompromised,12/30/21,Italy,Padua,
+PMID71819202,bBtU7rwr,clade_1,M,49,Immunocompromised,1/5/22,Italy,Padua,
+PMID71819202,bRwi1kUp,clade_1,M,49,Immunocompromised,1/14/22,Italy,Padua,
+PMID71819202,kIwUuAXW,clade_1,M,55,Immunocompromised,2/18/22,Italy,Padua,
+PMID71819202,oyJOhD9b,clade_1,M,55,Immunocompromised,2/22/22,Italy,Padua,
+PMID71819202,FEd0mxz0,clade_1,F,69,Immunocompromised,2/14/22,Italy,Padua,
+PMID71819202,VdPfExkK,clade_1,F,69,Immunocompromised,2/18/22,Italy,Padua,
+PMID71819202,kJF0nByS,clade_1,F,69,Immunocompromised,2/21/22,Italy,Padua,
+PMID71819202,2rulAjwI,clade_1,F,48,Immuconpetent,2/22/22,Italy,Padua,
+PMID71819202,rD3yPtRb,clade_1,M,93,Immuconpetent,3/4/22,Italy,Padua,
+PMID71819202,9JDvtJDl,clade_1,M,93,Immuconpetent,3/18/22,Italy,Padua,
+PMID71819202,UKN3HOzt,clade_1,M,93,Immuconpetent,3/14/22,Italy,Padua,
+PMID71819202,e21jHB7O,clade_1,F,48,Immuconpetent,2/15/22,Italy,Padua,
+PMID71819202,ExF3DzxD,clade_1,M,70,Immuconpetent,2/15/22,Italy,Padua,
+PMID71819202,lXsHO3xn,clade_1,M,76,Immuconpetent,2/15/22,Italy,Padua,
+PMID71819202,bqc9QiQr,clade_1,F,82,Immuconpetent,2/16/22,Italy,Padua,
+PMID71819202,d18M3jvU,clade_1,F,82,Immuconpetent,2/18/22,Italy,Padua,
+PMID71819202,EZ0CNgEm,clade_1,F,48,Immuconpetent,2/18/22,Italy,Padua,
+PMID71819202,arcsUftL,clade_1,F,59,Immuconpetent,3/16/22,Italy,Padua,
+PMID71819202,ISJcoIHX,clade_1,F,59,Immuconpetent,3/18/22,Italy,Padua,
+PMID71819202,KzCgMLPI,clade_1,F,73,Immuconpetent,3/21/22,Italy,Padua,
+PMID71819202,Tzvdl12h,clade_1,F,73,Immuconpetent,3/28/22,Italy,Padua,
+PMID71819202,NJImYGa7,clade_1,F,59,Immuconpetent,3/23/22,Italy,Padua,
+PMID71819202,C4D8m8Eg,clade_2,M,58,Immunocompromised,3/29/22,Italy,Padua,
+PMID71819202,fROSXyJB,clade_2,M,58,Immunocompromised,1/4/22,Italy,Padua,
+PMID71819202,qlppBLKZ,clade_2,M,83,Immuconpetent,3/15/22,Italy,Padua,
+PMID71819202,ZQcuIYNH,clade_2,M,74,Immuconpetent,3/15/22,Italy,Padua,
+PMID71819202,5wj8cYUd,clade_2,F,66,Immuconpetent,3/16/22,Italy,Padua,
+PMID71819202,7wMqYvWS,clade_2,M,89,Immuconpetent,3/17/22,Italy,Padua,
+PMID71819202,9vgQQbfZ,clade_2,M,74,Immuconpetent,3/22/22,Italy,Padua,
+PMID71819202,NdP020n6,clade_2,M,83,Immuconpetent,3/22/22,Italy,Padua,
+PMID71819202,cGvqrN5z,clade_2,M,89,Immuconpetent,3/23/22,Italy,Padua,
+PMID71819202,0xxixqFV,clade_2,F,85,Immuconpetent,3/29/22,Italy,Padua,
+PMID71819202,QimREx5G,clade_2,F,85,Immuconpetent,1/4/22,Italy,Padua,
+PMID91011121,XGn4XiBZ,clade_2,M,0,,2/25/22,China,Hong Kong,4
+PMID91011121,upppmkp0,clade_2,M,0,,2/26/22,China,Hong Kong,3
+PMID91011121,8bTaJB2O,clade_2,F,83,,1/25/22,China,Hong Kong,2
+PMID91011121,xtEcwtfo,clade_2,M,80,,2/10/22,China,Hong Kong,1
+PMID91011121,GnMzbbm9,clade_2,M,25,,2/10/22,China,Hong Kong,4
+PMID91011121,aeXv9Dmh,clade_2,M,1,,2/10/22,China,Hong Kong,3
+PMID91011121,99kNLsGq,clade_2,F,25,,2/7/22,China,Hong Kong,2
+PMID91011121,CGrMhDv2,clade_2,M,65,,2/7/22,China,Hong Kong,1
+PMID91011121,tChii9Ka,clade_2,F,70,,2/7/22,China,Hong Kong,1
+PMID91011121,eDlRpPcM,clade_2,F,73,,2/8/22,China,Hong Kong,2
+PMID91011121,93H2pKwz,clade_2,F,9,,2/8/22,China,Hong Kong,3
+PMID91011121,uooQEne6,clade_2,F,5,,2/6/22,China,Hong Kong,4
+PMID91011121,xI3IkZUC,clade_2,F,0,,2/6/22,China,Hong Kong,1
+PMID91011121,CxCOfk2v,clade_2,F,47,,1/25/22,China,Hong Kong,2
+PMID91011121,JSSDJNHA,clade_2,F,38,,2/4/22,China,Hong Kong,3
+PMID91011121,xeg3PDEX,clade_2,M,78,,2/3/22,China,Hong Kong,4
+PMID91011121,ZwXbT1fI,clade_2,M,26,,1/25/22,China,Hong Kong,4
+PMID91011121,Z8dRjagP,clade_2,M,65,,4/22/22,China,Hong Kong,3
+PMID91011121,RGgcgM5s,clade_2,F,71,,4/11/22,China,Hong Kong,2
+PMID91011121,fUAVOj92,clade_2,M,59,,3/17/22,China,Hong Kong,1
+PMID91011121,RYB7SWSn,clade_2,F,85,,3/14/22,China,Hong Kong,4
+PMID91011121,Vi9wQ7TI,clade_2,M,1,,3/11/22,China,Hong Kong,3
+PMID91011121,B0WpwXuE,clade_2,F,83,,3/9/22,China,Hong Kong,2
+PMID91011121,EIwAJ6uH,clade_2,F,74,,3/11/22,China,Hong Kong,1
+PMID91011121,7LNncpHa,clade_2,M,35,,3/3/22,China,Hong Kong,1
+PMID91011121,bcbtQU2U,clade_2,M,0,,2/25/22,China,Hong Kong,2
+PMID91011121,DoZ7kbeR,clade_2,M,0,,2/24/22,China,Hong Kong,3
+PMID91011121,xj60untn,clade_2,F,1,,2/21/22,China,Hong Kong,4
+PMID91011121,TTgylXv8,clade_2,F,2,,2/21/22,China,Hong Kong,1
+PMID91011121,lpnEmOct,clade_2,F,43,,2/18/22,China,Hong Kong,2
+PMID91011121,Nv3yfaS1,clade_2,F,1,,2/18/22,China,Hong Kong,3
+PMID91011121,rCogx9Nl,clade_2,M,67,,1/28/22,China,Hong Kong,4
+PMID91011121,LBDVrECX,clade_2,M,68,,2/18/22,China,Hong Kong,4
+PMID91011121,jtvcetxu,clade_2,M,0,,2/13/22,China,Hong Kong,3
+PMID91011121,wt5aHrN1,clade_2,M,1,,2/14/22,China,Hong Kong,2
+PMID91011121,10ovlIZA,clade_2,M,8,,2/13/22,China,Hong Kong,1
+PMID91011121,jdS7BZc8,clade_2,F,31,,1/23/22,China,Hong Kong,4
+PMID91011121,uVKeWdnj,clade_2,F,0,,2/25/22,China,Hong Kong,3
+PMID91011121,Qz0sLKzQ,clade_2,F,0,,2/26/22,China,Hong Kong,2
+PMID91011121,O2urCvwC,clade_2,F,76,,2/27/22,China,Hong Kong,1
+PMID91011121,JS04vqoQ,clade_2,M,0,,2/22/22,China,Hong Kong,1
+PMID91011121,QifYZxkz,clade_2,F,81,,2/18/22,China,Hong Kong,2
+PMID91011121,gTifoUiC,clade_2,M,0,,2/17/22,China,Hong Kong,3
+PMID91011121,ngFXNLsV,clade_2,F,3,,2/21/22,China,Hong Kong,4
+PMID91011121,keWkLT1s,clade_2,M,77,,2/16/22,China,Hong Kong,1
+PMID91011121,72NRv2AI,clade_2,M,0,,2/13/22,China,Hong Kong,2
+PMID91011121,0XHzzWr9,clade_2,F,5,,2/14/22,China,Hong Kong,3
+PMID91011121,mmFnJ1Gx,clade_2,F,40,,1/28/22,China,Hong Kong,4
+PMID91011121,yqsuALS5,clade_2,F,0,,2/13/22,China,Hong Kong,4
+PMID91011121,Nxtj22lH,clade_2,F,1,,2/14/22,China,Hong Kong,3
+PMID91011121,yFhPOLAH,clade_2,M,2,,2/10/22,China,Hong Kong,2
+PMID91011121,VnDzXQXT,clade_2,F,8,,2/9/22,China,Hong Kong,1
+PMID91011121,9awXGelI,clade_2,F,33,,2/10/22,China,Hong Kong,4
+PMID91011121,18uoWbPa,clade_2,F,73,,2/8/22,China,Hong Kong,3
+PMID91011121,fdJqsrDV,clade_2,F,74,,2/8/22,China,Hong Kong,2
+PMID91011121,yDqkIgLx,clade_2,M,7,,2/7/22,China,Hong Kong,1
+PMID91011121,MN0iKBH2,clade_2,F,62,,2/7/22,China,Hong Kong,1
+PMID91011121,InQ0S4Ng,clade_2,F,64,,2/7/22,China,Hong Kong,2
+PMID91011121,cWn6UxwY,clade_2,F,6,,2/5/22,China,Hong Kong,3
+PMID91011121,pPJeGAoh,clade_2,F,5,,2/6/22,China,Hong Kong,4
+PMID91011121,LdvoJTBF,clade_2,F,14,,2/7/22,China,Hong Kong,1
+PMID91011121,FJ8WkEKz,clade_2,F,51,,1/25/22,China,Hong Kong,2
+PMID91011121,4JfOjIPZ,clade_2,M,67,,2/6/22,China,Hong Kong,3
+PMID91011121,f9wLiTkL,clade_2,F,37,,2/5/22,China,Hong Kong,4
+PMID91011121,4fVAkZX7,clade_2,M,8,,2/5/22,China,Hong Kong,4
+PMID91011121,wAFjvTfV,clade_2,F,40,,2/4/22,China,Hong Kong,3
+PMID91011121,I7aSsVW7,clade_2,F,32,,2/3/22,China,Hong Kong,2
+PMID91011121,MQwnMxrB,clade_2,M,78,,3/11/22,China,Hong Kong,1
+PMID91011121,r1InFmZV,clade_2,M,71,,3/10/22,China,Hong Kong,4
+PMID91011121,WnhNH2je,clade_2,M,70,,3/9/22,China,Hong Kong,3
+PMID91011121,99BaNsd3,clade_2,M,0,,3/2/22,China,Hong Kong,2
+PMID91011121,hBB1AbDT,clade_2,M,75,,3/4/22,China,Hong Kong,1
