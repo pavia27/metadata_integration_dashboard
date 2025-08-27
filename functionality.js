@@ -1,8 +1,3 @@
-/* eslint-env browser */
-/* global d3 */
-
-/* ─── Global State ─────────────────────────────────────────────────────── */
-
 const state = {
   allSequences: [],
   sequences: [],
@@ -14,24 +9,19 @@ const state = {
   descriptorInfo: {}
 };
 
-/* ─── Helper and Drawing Functions ─────────────────────────────────────── */
-
 /**
- * Returns an array with unique values.
- * @param {Array} arr - The input array.
- * @returns {Array} A new array containing only the unique elements from the input array.
+ * @param {Array} arr
+ * @returns {Array}
  */
 const unique = arr => [...new Set(arr)];
 
 /**
- * A simple hashing function for strings.
  * @param {string} str - The input string.
  * @returns {number} A numeric hash of the string.
  */
 const hash = str => str ? Array.from(String(str)).reduce((h, c) => h + c.charCodeAt(0), 0) : 0;
 
 /**
- * Parses a Newick format string into a nested JavaScript object.
  * @param {string} newick - The Newick string.
  * @returns {object} A hierarchical object representing the tree.
  */
@@ -61,7 +51,6 @@ function parseNewick(newick) {
   }
 
   function parseSubtree() {
-    // It's a branch set
     if (newick[pos] === '(') {
       pos++;
       const children = [];
@@ -83,7 +72,6 @@ function parseNewick(newick) {
       if (length) node.length = length;
       return node;
     }
-    // It's a leaf
     else {
       const {
         name,
@@ -100,10 +88,6 @@ function parseNewick(newick) {
   return parseSubtree(trimmedNewick);
 }
 
-
-/**
- * Analyzes descriptors to determine if they are numerical or categorical.
- */
 function analyzeDescriptors() {
   state.descriptors.forEach(key => {
     const values = state.allSequences
@@ -126,7 +110,6 @@ function analyzeDescriptors() {
     });
 
     const uniqueValues = unique(values);
-    // Heuristic: If >80% of non-empty values are numeric and there are more than 6 unique values, treat as numerical.
     const isNumerical = (numericCount / values.length > 0.8) && uniqueValues.length > 6;
     const type = isNumerical ? 'numerical' : 'categorical';
 
@@ -137,9 +120,6 @@ function analyzeDescriptors() {
   });
 }
 
-/**
- * Exports the currently filtered data to a CSV file.
- */
 function exportCSV() {
   const rows = [
     ["accession", "pmid", ...state.descriptors]
@@ -159,9 +139,6 @@ function exportCSV() {
   link.click();
 }
 
-/**
- * Creates an IntersectionObserver to track which panel is currently visible.
- */
 function createObserver() {
   const panels = document.querySelectorAll(".panel");
   const observer = new IntersectionObserver(entries => {
@@ -178,9 +155,6 @@ function createObserver() {
   panels.forEach(panel => observer.observe(panel));
 }
 
-/**
- * Populates the control dropdowns with available descriptors.
- */
 function populateControls() {
   const treeColourSelect = document.getElementById("treeColour");
   if (treeColourSelect) {
@@ -195,9 +169,6 @@ function populateControls() {
   });
 }
 
-/**
- * Main function to draw the phylogenetic tree.
- */
 function drawTree() {
   const svg = d3.select("#treeSvg");
   svg.selectAll("*").remove();
@@ -213,7 +184,6 @@ function drawTree() {
     .sum(d => (d.branchset ? 0 : 1))
     .sort((a, b) => (a.value - b.value) || d3.ascending(a.data.length, b.data.length));
 
-  // Color nodes based on selected descriptor
   const colorDesc = document.getElementById("treeColour").value;
   const colorInfo = state.descriptorInfo[colorDesc];
   const colorScale = (colorInfo && colorInfo.type === 'categorical') ?
@@ -238,9 +208,6 @@ function drawTree() {
   }
 }
 
-/**
- * Draws a rectangular (classic) phylogenetic tree.
- */
 function drawRectangularTree(svg, root, width, height, colorDesc, colorInfo, colorScale) {
   const margin = {
     top: 20,
@@ -256,7 +223,6 @@ function drawRectangularTree(svg, root, width, height, colorDesc, colorInfo, col
 
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // Draw links
   g.append("g")
     .attr("fill", "none")
     .attr("stroke", "#555")
@@ -267,7 +233,6 @@ function drawRectangularTree(svg, root, width, height, colorDesc, colorInfo, col
     .attr("d", d => `M${d.source.y},${d.source.x} L${d.target.y},${d.target.x}`)
     .attr("stroke", d => d.target.color);
 
-  // Draw nodes
   const node = g.append("g")
     .selectAll("g")
     .data(root.descendants())
@@ -280,7 +245,6 @@ function drawRectangularTree(svg, root, width, height, colorDesc, colorInfo, col
     .attr("stroke", "#fff")
     .attr("stroke-width", 1);
 
-  // Draw leaf labels
   g.append("g")
     .selectAll("text")
     .data(root.leaves())
@@ -293,7 +257,6 @@ function drawRectangularTree(svg, root, width, height, colorDesc, colorInfo, col
     .attr("font-size", 10)
     .attr("text-anchor", "start");
 
-  // Draw Legend
   if (colorInfo && colorInfo.type === 'categorical' && colorInfo.domain.length) {
     const legend = g.append("g").attr("class", "legend").attr("transform", `translate(20, 20)`);
     legend.append("text").text(colorDesc).attr("font-weight", "bold").attr("dy", -5);
@@ -303,10 +266,6 @@ function drawRectangularTree(svg, root, width, height, colorDesc, colorInfo, col
   }
 }
 
-
-/**
- * Draws a radial phylogenetic tree.
- */
 function drawRadialTree(svg, root, width, height, colorDesc, colorInfo, colorScale) {
   const outerRadius = Math.min(width, height) / 2 - 100;
   const innerRadius = outerRadius - 120;
@@ -316,7 +275,6 @@ function drawRadialTree(svg, root, width, height, colorDesc, colorInfo, colorSca
     .separation(() => 1);
   cluster(root);
 
-  // Set radius based on branch length
   let maxLen = 0;
   root.each(d => {
     if (d.data.length > maxLen) maxLen = d.data.length;
@@ -335,11 +293,9 @@ function drawRadialTree(svg, root, width, height, colorDesc, colorInfo, colorSca
     .attr("font-family", "sans-serif")
     .attr("font-size", 10);
 
-  // Link generators
   const linkConstant = d3.linkRadial().angle(d => d.x * Math.PI / 180).radius(d => d.y);
   const linkVariable = d3.linkRadial().angle(d => d.x * Math.PI / 180).radius(d => d.radius);
 
-  // Draw links
   const link = g.append("g")
     .attr("fill", "none")
     .attr("stroke", "#000")
@@ -352,7 +308,6 @@ function drawRadialTree(svg, root, width, height, colorDesc, colorInfo, colorSca
     .attr("d", linkConstant)
     .attr("stroke", d => d.target.color);
 
-  // Draw labels
   g.selectAll("text")
     .data(root.leaves())
     .join("text")
@@ -376,18 +331,15 @@ function drawRadialTree(svg, root, width, height, colorDesc, colorInfo, colorSca
     };
   }
 
-  // Function to update branch lengths
   function update(checked) {
     const t = d3.transition().duration(750);
     link.transition(t).attr("d", checked ? linkVariable : linkConstant);
   }
   svg.node().update = update;
 
-  // Initial update based on checkbox
   const isChecked = document.getElementById("treeBranchLengthToggle").checked;
   update(isChecked);
 
-  // Draw Legend
   if (colorInfo && colorInfo.type === 'categorical' && colorInfo.domain.length) {
     const legend = g.append("g").attr("class", "legend").attr("transform", `translate(${-width / 2 + 20}, ${-height / 2 + 20})`);
     legend.append("text").text(colorDesc).attr("font-weight", "bold").attr("dy", -5);
@@ -397,10 +349,6 @@ function drawRadialTree(svg, root, width, height, colorDesc, colorInfo, colorSca
   }
 }
 
-
-/**
- * Main function to draw the chart (scatter or pyramid).
- */
 function drawChart() {
   const svg = d3.select("#chartSvg");
   svg.selectAll("*").remove();
@@ -424,9 +372,6 @@ function drawChart() {
   }
 }
 
-/**
- * Draws a scatter plot.
- */
 function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc, shapeDesc, shapeInfo) {
   const {
     width,
@@ -443,7 +388,6 @@ function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc, shapeDesc,
 
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // Scales
   const xScale = xInfo.type === 'numerical' ?
     d3.scaleLinear().domain(xInfo.domain).nice().range([0, graphWidth]) :
     d3.scalePoint().domain(xInfo.domain).range([0, graphWidth]).padding(0.5);
@@ -455,11 +399,9 @@ function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc, shapeDesc,
   const shapeScale = d3.scaleOrdinal(d3.symbols).domain(shapeInfo.domain);
   const symbolGenerator = d3.symbol().size(180);
 
-  // Axes
   g.append("g").attr("transform", `translate(0,${graphHeight})`).call(d3.axisBottom(xScale));
   g.append("g").call(d3.axisLeft(yScale));
 
-  // Data filtering
   const plotData = state.sequences.filter(d => {
     const xVal = d.descriptors[xDesc];
     const yVal = d.descriptors[yDesc];
@@ -469,7 +411,6 @@ function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc, shapeDesc,
       shapeVal !== null && shapeVal !== undefined && String(shapeVal).toUpperCase() !== 'NA';
   });
 
-  // Draw points
   g.selectAll(".point")
     .data(plotData)
     .enter()
@@ -482,7 +423,6 @@ function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc, shapeDesc,
     .append("title")
     .text(d => `${d.accession}\n${xDesc}: ${d.descriptors[xDesc]}\n${yDesc}: ${d.descriptors[yDesc]}\n${shapeDesc}: ${d.descriptors[shapeDesc]}`);
 
-  // Legends
   const colorDomain = state.descriptorInfo[colourDesc].domain;
   const colorLegend = g.append("g").attr("transform", `translate(${graphWidth + 30}, 0)`);
   colorLegend.append("text").text(colourDesc).attr("font-weight", "bold");
@@ -499,9 +439,6 @@ function drawScatterPlot(svg, xDesc, yDesc, xInfo, yInfo, colourDesc, shapeDesc,
   shapeItems.append("text").text(d => d).attr("x", 20).attr("y", 5);
 }
 
-/**
- * Draws a population pyramid chart.
- */
 function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo) {
   if (xInfo.type !== 'categorical' || yInfo.type !== 'categorical') {
     svg.append("text")
@@ -525,7 +462,6 @@ function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo) {
   const graphWidth = width - margin.left - margin.right;
   const graphHeight = height - margin.top - margin.bottom;
 
-  // Data aggregation
   const counts = d3.rollup(state.sequences, v => v.length, d => d.descriptors[xDesc], d => d.descriptors[yDesc]);
   const xCategories = xInfo.domain;
   const yCategories = yInfo.domain;
@@ -538,13 +474,11 @@ function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo) {
     maxCount = Math.max(maxCount, count1, count2);
   });
 
-  // Scales
   const xScale = d3.scaleLinear().domain([-maxCount, maxCount]).range([0, graphWidth]);
   const yScale = d3.scaleBand().domain(yCategories).range([0, graphHeight]).padding(0.2);
 
   const g = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Left bars
   g.selectAll(".bar-left")
     .data(yCategories).enter()
     .append("rect")
@@ -555,7 +489,6 @@ function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo) {
     .attr("height", yScale.bandwidth())
     .attr("fill", "#4c78a8");
 
-  // Right bars
   g.selectAll(".bar-right")
     .data(yCategories).enter()
     .append("rect")
@@ -566,7 +499,6 @@ function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo) {
     .attr("height", yScale.bandwidth())
     .attr("fill", "#69b3a2");
 
-  // Center Y-axis labels
   g.append("g")
     .call(d3.axisLeft(yScale).tickSize(0))
     .attr("transform", `translate(${xScale(0)}, 0)`)
@@ -576,14 +508,10 @@ function drawPyramidChart(svg, xDesc, yDesc, xInfo, yInfo) {
     .attr("x", 0)
     .attr("text-anchor", "middle");
 
-  // X-axis titles
   g.append("text").attr("x", xScale(-maxCount / 2)).attr("y", -10).text(xCat1).attr("text-anchor", "middle");
   g.append("text").attr("x", xScale(maxCount / 2)).attr("y", -10).text(xCat2).attr("text-anchor", "middle");
 }
 
-/**
- * Draws a heatmap showing data presence/absence.
- */
 function drawHeat() {
   const svg = d3.select("#heatSvg");
   svg.selectAll("*").remove();
@@ -608,13 +536,11 @@ function drawHeat() {
 
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // Scales
   const x = d3.scaleBand().domain(x_elements).range([0, graphWidth]).padding(0.05);
   const y = d3.scaleBand().domain(y_elements).range([0, graphHeight]).padding(0.05);
   const colourScheme = document.getElementById("heatColour").value;
   const colour = d3.scaleSequential(d3[colourScheme]).domain([0, 1]);
 
-  // Axes
   g.append("g")
     .attr("transform", `translate(0,${graphHeight})`)
     .call(d3.axisBottom(x))
@@ -628,7 +554,6 @@ function drawHeat() {
     .selectAll("text")
     .style("font-size", "14px");
 
-  // Draw heatmap cells
   x_elements.forEach(pmid => {
     y_elements.forEach(descriptor => {
       const seqsInPaper = state.sequences.filter(s => s.pmid === pmid);
@@ -657,7 +582,6 @@ function drawHeat() {
     });
   });
 
-  // Legend
   const legend = g.append("g")
     .attr("class", "legend")
     .attr("transform", `translate(0, ${graphHeight + 120})`);
@@ -689,13 +613,9 @@ function drawHeat() {
     .attr("alignment-baseline", "middle");
 }
 
-/**
- * Binds all necessary event listeners for controls.
- */
 function bindEvents() {
   document.getElementById("exportCSV").addEventListener("click", exportCSV);
 
-  // Tree controls
   const treeLayoutSelect = document.getElementById("treeLayout");
   const branchLengthToggle = document.getElementById("treeBranchLengthToggle");
 
@@ -713,7 +633,6 @@ function bindEvents() {
 
   document.getElementById("treeColour").addEventListener("change", drawTree);
 
-  // Chart controls
   ["chartX", "chartY", "chartColour", "chartShape"].forEach(id => {
     document.getElementById(id).addEventListener("change", drawChart);
   });
@@ -721,10 +640,8 @@ function bindEvents() {
     r.addEventListener("change", drawChart);
   });
 
-  // Heatmap controls
   document.getElementById("heatColour").addEventListener("change", drawHeat);
 
-  // Search box
   document.getElementById("searchBox").addEventListener("input", e => {
     const tokens = e.target.value.split(",")
       .map(t => t.trim().toUpperCase())
@@ -745,13 +662,9 @@ function bindEvents() {
   });
 }
 
-
-/* ─── Data Loading & Bootstrapping ─────────────────────────────────────── */
-
 /**
- * Reads a file using the FileReader API and returns a Promise.
- * @param {File} file - The file to read.
- * @returns {Promise<string>} A promise that resolves with the file's text content.
+ * @param {File} file
+ * @returns {Promise<string>}
  */
 function readFileAsText(file) {
   return new Promise((resolve, reject) => {
@@ -763,9 +676,8 @@ function readFileAsText(file) {
 }
 
 /**
- * Main data processing function. Accepts data as arguments.
- * @param {string} newickString - The Newick tree data.
- * @param {string} csvString - The sequence data in CSV format.
+ * @param {string} newickString
+ * @param {string} csvString 
  */
 function loadDashboard(newickString, csvString) {
   try {
@@ -774,7 +686,6 @@ function loadDashboard(newickString, csvString) {
     if (!raw.length) throw new Error("CSV data is empty");
     if (!newickString) throw new Error("Tree data is empty");
 
-    // Process sequence data
     state.descriptors = raw.columns.filter(k => !["pmid", "accession"].includes(k));
     state.allSequences = raw.map(d => ({
       accession: d.accession,
@@ -783,7 +694,6 @@ function loadDashboard(newickString, csvString) {
         .filter(([k]) => !["pmid", "accession"].includes(k))
         .map(([k, v]) => {
           const num = +v;
-          // Coerce to number if possible, otherwise keep as string
           return [k, isNaN(num) || v === '' ? v : num];
         }))
     }));
@@ -792,17 +702,14 @@ function loadDashboard(newickString, csvString) {
       pmid
     }));
 
-    // Parse tree data
     state.tree = parseNewick(newickString);
 
-    // Initialize dashboard
     analyzeDescriptors();
     populateControls();
     createObserver();
     bindEvents();
 
-    // Initial draw
-    document.querySelector('main').classList.add('loaded'); // Hide upload section
+    document.querySelector('main').classList.add('loaded');
     document.getElementById("treeBranchLengthToggle").disabled = document.getElementById("treeLayout").value === 'rectangular';
     drawTree();
     drawChart();
@@ -815,9 +722,6 @@ function loadDashboard(newickString, csvString) {
   }
 }
 
-/**
- * Sets up the file input and button event listeners.
- */
 function initializeFileUpload() {
   const csvFileInput = document.getElementById('csvFileInput');
   const treeFileInput = document.getElementById('treeFileInput');
@@ -848,5 +752,4 @@ function initializeFileUpload() {
   });
 }
 
-// Start the application by setting up the file upload listeners
 window.addEventListener("DOMContentLoaded", initializeFileUpload);
