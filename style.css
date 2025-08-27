@@ -78,7 +78,7 @@ main {
 }
 
 main.loaded #uploadSection {
-    display: none;
+  display: none;
 }
 
 .panel {
@@ -110,5 +110,5 @@ main.loaded #uploadSection {
 
 .panel svg {
     width: 100%;
-    height: calc(100% - 60px); /* Adjust height for settings bar */
+    height: calc(100% - 60px);
 }
