@@ -16,14 +16,14 @@ const state = {
 const unique = arr => [...new Set(arr)];
 
 /**
- * @param {string} str - The input string.
- * @returns {number} A numeric hash of the string.
+ * @param {string} str
+ * @returns {number}
  */
 const hash = str => str ? Array.from(String(str)).reduce((h, c) => h + c.charCodeAt(0), 0) : 0;
 
 /**
- * @param {string} newick - The Newick string.
- * @returns {object} A hierarchical object representing the tree.
+ * @param {string} newick
+ * @returns {object} 
  */
 function parseNewick(newick) {
   let pos = 0;
