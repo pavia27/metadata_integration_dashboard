@@ -1,21 +1,6 @@
 # Dashboard for integrating metadata and genomics
 
 An interactive, client‑side dashboard for exploring sequence data and analyzing metadata. 
-
----
-
-## Table of Contents
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-  - [1) Upload Your Data](#1-upload-your-data)
-  - [2) Phylogenetic Tree Panel](#2-phylogenetic-tree-panel)
-  - [3) Chart Panel](#3-chart-panel)
-  - [4) Heatmap Panel](#4-heatmap-panel)
-  - [5) Utilities](#5-utilities)
-- [Data Formats](#data-formats)
-- [Development Notes](#development-notes)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
   
 ---
 
